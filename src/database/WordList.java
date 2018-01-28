@@ -7,15 +7,22 @@ import java.util.Map;
 public class WordList {
 	public int id;
 	public String name;
-	
-	public List<WordListSection> sections;
+
+	public List<Word> words;
 	
 	public WordList() {
-		sections = new ArrayList<>();
+		words = new ArrayList<>();
 	}
 
 	public void collectWords(Map<Integer, Word> allWords) {
-		for (WordListSection section : sections)
-			section.collectWords(allWords);
+		for (Word word : words) {
+			if (allWords.containsKey(word.id)) {
+				if (!word.equals(allWords.get(word.id)))
+					throw new IllegalStateException("There are two words with the same ID (" + word.id + "): " +
+						word.word + ", " + allWords.get(word.id).word);
+			} else {
+				allWords.put(word.id, word);
+			}
+		}
 	}
 }

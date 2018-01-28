@@ -12,6 +12,13 @@ public class Word {
 		translations = new ArrayList<>();
 	}
 	
+	public Word(Word oth) {
+		this();
+		id = oth.id;
+		word = oth.word;
+		translations.addAll(oth.translations);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Word) {
@@ -20,5 +27,10 @@ public class Word {
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return word + "->" + translations.toString();
 	}
 }
