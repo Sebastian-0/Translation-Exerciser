@@ -2,5 +2,6 @@ package database;
 
 public class FaultyWord {
 	public int id;
-	public int decay;
+	public int failureStreak;
+	public float decay;
 }

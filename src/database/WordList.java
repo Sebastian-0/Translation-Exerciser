@@ -14,14 +14,14 @@ public class WordList {
 		words = new ArrayList<>();
 	}
 
-	public void collectWords(Map<Integer, Word> allWords) {
+	public void collectWords(Map<Integer, Word> target) {
 		for (Word word : words) {
-			if (allWords.containsKey(word.id)) {
-				if (!word.equals(allWords.get(word.id)))
+			if (target.containsKey(word.id)) {
+				if (!word.equals(target.get(word.id)))
 					throw new IllegalStateException("There are two words with the same ID (" + word.id + "): " +
-						word.word + ", " + allWords.get(word.id).word);
+						word.word + ", " + target.get(word.id).word);
 			} else {
-				allWords.put(word.id, word);
+				target.put(word.id, word);
 			}
 		}
 	}

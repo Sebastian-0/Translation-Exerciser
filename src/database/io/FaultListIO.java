@@ -28,7 +28,8 @@ public class FaultListIO {
 				
 				FaultyWord word = new FaultyWord();
 				word.id = Integer.parseInt(wordTokens[0]);
-				word.decay = Integer.parseInt(wordTokens[1]);
+				word.failureStreak = Integer.parseInt(wordTokens[1]);
+				word.decay = Float.parseFloat(wordTokens[2]);
 				
 				list.add(word);
 			}
@@ -39,11 +40,11 @@ public class FaultListIO {
 		return list;
 	}
 	
-	public void write(File input, List<FaultyWord> list) throws IOException {
-		BufferedWriter out = new BufferedWriter(new FileWriter(input));
+	public void write(File output, List<FaultyWord> list) throws IOException {
+		BufferedWriter out = new BufferedWriter(new FileWriter(output));
 		
 		for (FaultyWord faultyWord : list) {
-			out.write(faultyWord.id + ";" + faultyWord.decay + "\r\n");
+			out.write(faultyWord.id + ";" + faultyWord.failureStreak + ";" + faultyWord.decay + "\r\n");
 		}
 		
 		out.close();

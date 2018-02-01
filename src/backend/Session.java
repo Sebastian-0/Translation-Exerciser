@@ -15,12 +15,15 @@ public class Session {
 		AlreadyAssigned
 	}
 		
+	private Faults faults;
+
 	private boolean isTraining;
 	
 	private Map<String, Word> originalWords;
 	private Map<String, Word> wordsLeft;
-		
-	public Session(boolean isTraining, Map<Integer, Word> wordsToPractise) {
+	
+	public Session(Faults faults, boolean isTraining, Map<Integer, Word> wordsToPractise) {
+		this.faults = faults;
 		this.isTraining = isTraining;
 
 		originalWords = new HashMap<>();
@@ -52,8 +55,10 @@ public class Session {
 	public Result tryTranslate(String word, String translation) {
 		Word w = wordsLeft.get(word);
 		if (w.translations.remove(translation)) {
-			if (w.translations.isEmpty())
+			if (w.translations.isEmpty()) {
+				faults.wordCorrect(w);
 				return Result.CorrectWordDone;
+			}
 			return Result.CorrectTranslationsLeft;
 		}
 		
@@ -62,7 +67,7 @@ public class Session {
 		}
 		
 		if (!isTraining) {
-			// TODO Add penalty for error
+			faults.wordIncorrect(w, originalWords.get(word).translations.size() - w.translations.size());
 		}
 		return Result.Incorrect;
 	}

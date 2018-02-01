@@ -33,4 +33,9 @@ public class Word {
 	public String toString() {
 		return word + "->" + translations.toString();
 	}
+	
+	@Override
+	public int hashCode() {
+		return Integer.hashCode(id);
+	}
 }

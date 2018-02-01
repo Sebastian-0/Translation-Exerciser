@@ -12,16 +12,20 @@ import database.io.WordListIO;
 
 public class WordExerciser {
 	private Map<Integer, WordList> wordLists;
-	private Map<Integer, Word> allWords; // TODO Maybe remove this? In that case keep some way of checking for duplicates on load
+	private Map<Integer, Word> allWords;
+	
+	private Faults faults;
 	
 	public WordExerciser() {
 		wordLists = new HashMap<>();
 		allWords = new HashMap<>();
+		faults = new Faults(allWords);
 	}
 	
 	
-	public void load(File wordlistFolder) throws IOException {
+	public void load(File wordlistFolder, File faultyWordFile) throws IOException {
 		loadListsInternal(wordlistFolder);
+		faults.load(faultyWordFile);
 	}
 	
 	private void loadListsInternal(File folder) throws IOException {
@@ -52,14 +56,26 @@ public class WordExerciser {
 			wordLists.get(id).collectWords(wordsToPractise);
 		}
 		
-		Session session = new Session(isTraining, wordsToPractise);
+		Session session = new Session(faults, isTraining, wordsToPractise);
+		return session;
+	}
+	
+	public Session startExercisingFaults(boolean includeZeroDecay) {
+		Map<Integer, Word> wordsToPractise = new HashMap<>();
+		faults.collectWords(wordsToPractise, includeZeroDecay);
+		
+		Session session = new Session(faults, false, wordsToPractise);
 		return session;
 	}
 	
 	
 	public static void main(String[] args) throws IOException {
 		WordExerciser ex = new WordExerciser();
-		ex.load(new File("wordlists"));
+		ex.load(new File("wordlists"), new File("data/faults.txt"));
 		System.out.println(ex.allWords);
+		Map<Integer, Word> wordsToPractise = new HashMap<>();
+		ex.faults.collectWords(wordsToPractise, false);
+		System.out.println(wordsToPractise);
+		ex.startExercisingFaults(true);
 	}
 }
