@@ -1,0 +1,6 @@
+
+// Menu bar
+menubar_file = File
+
+menubar_new  = New Session
+menubar_quit = Quit

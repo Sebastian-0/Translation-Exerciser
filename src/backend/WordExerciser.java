@@ -39,6 +39,8 @@ public class WordExerciser {
 			else {
 				WordList list = loader.read(file);
 				list.collectWords(allWords);
+				if (wordLists.containsKey(list.id))
+					throw new IllegalStateException("" + list.id);
 				wordLists.put(list.id, list);
 			}
 		}

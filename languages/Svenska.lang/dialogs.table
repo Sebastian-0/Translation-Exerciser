@@ -1,0 +1,21 @@
+
+// Miscellaneous option pane messages
+file_chooser_title_save = Spara
+file_chooser_title_save_as = Spara som
+file_chooser_title_open = Öppna
+
+
+// Initialization failed dialog
+init_exerciser_failed_title      = Initieringsfel
+init_exerciser_failed_io         = Fel inträffade när ordlistor och interna data lästes in: {0}
+init_exerciser_failed_duplicates = Det finns flera ordlistor med samma ID: {0}
+init_exerciser_failed_unknown    = Ett okänt fel inträffade, kan vara ett formatteringsfel i en fil: {0}
+
+
+// New session dialog
+new_session_title         = Ny träningssession
+new_session_word_lists    = Ordlistor
+new_session_exercise_mode = Läge
+new_session_practice      = Öva inför test
+new_session_test          = Test
+new_session_start         = Starta träning

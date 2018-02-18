@@ -1,0 +1,6 @@
+
+// Menu bar
+menubar_file = Arkiv
+
+menubar_new  = Ny Session
+menubar_quit = Avsluta

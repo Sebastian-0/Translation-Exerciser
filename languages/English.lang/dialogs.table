@@ -1,0 +1,21 @@
+
+// Miscellaneous option pane messages
+file_chooser_title_save = Save
+file_chooser_title_save_as = Save As
+file_chooser_title_open = Open
+
+
+// Initialization failed dialog
+init_exerciser_failed_title      = Initialization Error
+init_exerciser_failed_io         = Failed to load the word lists or internal data: {0}
+init_exerciser_failed_duplicates = Multiple word lists with the same ID: {0}
+init_exerciser_failed_unknown    = An unknown error occurred, it could be a formatting error: {0}
+
+
+// New session dialog
+new_session_title         = New training session
+new_session_word_lists    = Word lists
+new_session_exercise_mode = Mode
+new_session_practice      = Practice
+new_session_test          = Test
+new_session_start         = Start training
