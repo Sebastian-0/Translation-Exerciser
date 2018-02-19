@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 
 import config.Table;
+import database.WordList;
 import gui.control.ProgramUI;
 import gui.dialogs.CancelButton;
 import util.SimpleGridBagLayout;
@@ -23,8 +24,12 @@ public class NewSessionDialog extends JDialog {
 	private TestRadioButton testRadioButton;
 	private WordLists wordLists;
 	
+	private ProgramUI ui; 
+	
 	public NewSessionDialog(ProgramUI ui) {
 		super ((Frame) ui, Table.get("new_session_title"));
+		
+		this.ui = ui;
 		
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
@@ -68,6 +73,8 @@ public class NewSessionDialog extends JDialog {
 	
 	
 	public void createSession() {
-		
+		int[] listIds = wordLists.getWordLists();
+		ui.startExercising(listIds, practiceRadioButton.isSelected());
+		dispose();
 	}
 }

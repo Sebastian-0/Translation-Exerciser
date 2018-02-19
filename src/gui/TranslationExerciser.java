@@ -26,6 +26,8 @@ import util.TextureStorage;
 
 public class TranslationExerciser extends JFrame implements ProgramUI {
 	
+	private ExercisingPanel exercisingPanel;
+	
 	private WordExerciser exerciser;
 
 	public TranslationExerciser() {
@@ -107,17 +109,14 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 		return true;
 	}
 
-	private void initGui()
-	{
+	private void initGui() {
 		setTitle(Table.get("window_title"));
 		loadProgramIcon();
 		
 		setJMenuBar(new MenuBar(this));
 		
-//		constructionPanel = new ConstructionPanel(this);
-//		JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new CircuitTypePanel(this), constructionPanel);
-//		split.setOneTouchExpandable(true);
-//		add(split);
+		exercisingPanel = new ExercisingPanel();
+		add(exercisingPanel);
 		
 		pack(); // Pack two times to set minimum size before resizing to the preferred size
 		setMinimumSize(getSize());
@@ -134,20 +133,17 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 		setVisible(true);
 	}
 
-	private Dimension getPreviousSize()
-	{
+	private Dimension getPreviousSize() {
 		return new Dimension(
 				Integer.parseInt(Config.get(Config.LAST_WINDOW_WIDTH, "10")),
 				Integer.parseInt(Config.get(Config.LAST_WINDOW_HEIGHT, "10")));
 	}
 	
-	private int getPreviousExtendedState()
-	{
+	private int getPreviousExtendedState() {
 		return Integer.parseInt(Config.get(Config.LAST_EXTENDED_STATE, "" + NORMAL));
 	}
 
-	private void loadProgramIcon()
-	{
+	private void loadProgramIcon() {
 		Image image = TextureStorage.instance().getTexture("exerciser_icon");
 		Image image16 = TextureStorage.instance().getTexture("exerciser_icon16");
 		
@@ -159,8 +155,7 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 	
 	
 	@Override
-	public void shutdown()
-	{
+	public void shutdown() {
 		dispose();
 	}
 	
@@ -171,21 +166,30 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 	}
 	
 	
+	@Override
+	public void startExercising(int[] listIds, boolean isPractising) {
+		exercisingPanel.start(exerciser.startExercising(isPractising, listIds));
+	}
+	
+	
+	@Override
+	public void startExercisingFaulty(boolean isPractising) {
+		exercisingPanel.start(exerciser.startExercisingFaults(isPractising, false)); // TODO Proper pass of "includeZeroDecay"
+	}
+	
+	
 	
 	private WindowAdapter windowListener = new WindowAdapter() {
 		@Override
-		public void windowClosing(WindowEvent e)
-		{
+		public void windowClosing(WindowEvent e) {
 			shutdown();
 		}
 		
 		@Override
-		public void windowStateChanged(WindowEvent e)
-		{
+		public void windowStateChanged(WindowEvent e) {
 			int previousMaximizedState = (e.getOldState() & MAXIMIZED_BOTH);
 			int currentMaximizedState = (e.getNewState() & MAXIMIZED_BOTH);
-			if (previousMaximizedState != currentMaximizedState)
-			{
+			if (previousMaximizedState != currentMaximizedState) {
 				Config.put(Config.LAST_EXTENDED_STATE, "" + currentMaximizedState);
 			}
 		}
@@ -193,8 +197,7 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 		
 	private ComponentAdapter componentListener = new ComponentAdapter() {
 		@Override
-		public void componentResized(ComponentEvent e)
-		{
+		public void componentResized(ComponentEvent e) {
 			if ((getExtendedState() & MAXIMIZED_HORIZ) == 0)
 				Config.put(Config.LAST_WINDOW_WIDTH, "" + getWidth());
 			if ((getExtendedState() & MAXIMIZED_VERT) == 0)

@@ -16,18 +16,21 @@ import database.WordList;
 import gui.control.ProgramUI;
 
 public class WordLists extends JList<String> {
+	private WordExerciser exerciser;
+	
 	private StartButton startButton;
 	
 	public WordLists(ProgramUI ui, StartButton startButton) {
 		this.startButton = startButton;
-		
-		WordExerciser exerciser = ui.getWordExerciser();
+		this.exerciser = ui.getWordExerciser();
 		Collection<WordList> lists = exerciser.getLists();
 		
 		List<String> names = new ArrayList<>();
 		for (WordList wordList : lists) {
 			names.add(wordList.name);
 		}
+		
+//		names.add(Table.get("new_session_previous_errors"));
 		
 		setListData(names.toArray(new String[0]));
 		
@@ -36,6 +39,16 @@ public class WordLists extends JList<String> {
 		setSelectedIndex(0);
 		
 		addListSelectionListener(listener);
+	}
+	
+	
+	public int[] getWordLists() {
+		List<WordList> lists = new ArrayList<>(exerciser.getLists());
+		List<Integer> result = new ArrayList<>();
+		for (int index : getSelectedIndices()) {
+			result.add(lists.get(index).id);
+		}
+		return result.stream().mapToInt(i->i).toArray();
 	}
 	
 	

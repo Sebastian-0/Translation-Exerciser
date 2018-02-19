@@ -62,11 +62,11 @@ public class WordExerciser {
 		return session;
 	}
 	
-	public Session startExercisingFaults(boolean includeZeroDecay) {
+	public Session startExercisingFaults(boolean isTraining, boolean includeZeroDecay) {
 		Map<Integer, Word> wordsToPractise = new HashMap<>();
 		faults.collectWords(wordsToPractise, includeZeroDecay);
 		
-		Session session = new Session(faults, false, wordsToPractise);
+		Session session = new Session(faults, isTraining, wordsToPractise);
 		return session;
 	}
 	
@@ -78,6 +78,6 @@ public class WordExerciser {
 		Map<Integer, Word> wordsToPractise = new HashMap<>();
 		ex.faults.collectWords(wordsToPractise, false);
 		System.out.println(wordsToPractise);
-		ex.startExercisingFaults(true);
+		ex.startExercisingFaults(false, true);
 	}
 }

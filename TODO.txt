@@ -1,0 +1,4 @@
+
+- Skapa gui-backend för ExercisingPanel med "komponenterna", låt interaktion ske via ett vertkyg
+- Lås edit-pane i programmets början 
+- Lägg in ny dialog för "practice previous errors", ska bara funka om det finns previous errors
