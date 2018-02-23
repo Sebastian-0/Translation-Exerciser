@@ -2,6 +2,6 @@
 Test list
 
 1;Hello = Hej
-2;Cake = Tårta
+2;Cake = TÃ¥rta
 3;Triangle = Triangel
 4;More = Mer

@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import backend.Session;
 import config.Table;
+import gui.model.WordEngine;
 
 public class ExercisingPanel extends JPanel {
 	private static final float MINIMUM_SCALE_SIZE = 1/2f;
@@ -30,6 +31,8 @@ public class ExercisingPanel extends JPanel {
 	private Font labelFont;
 		
 	private float scale;
+	
+	private WordEngine engine;
 		
 		
 	public ExercisingPanel() {
@@ -43,6 +46,8 @@ public class ExercisingPanel extends JPanel {
 	    labelFont = getFont().deriveFont(Font.BOLD, 12f);
 		
 		scale = 1;
+		
+		engine = new WordEngine();
 	}
 	  
 	  
@@ -96,6 +101,8 @@ public class ExercisingPanel extends JPanel {
 	
 	public void start(Session session) {
 		resetViewport();
+		engine.start(session);
+		repaint();
 	}
 	
 	
@@ -112,13 +119,13 @@ public class ExercisingPanel extends JPanel {
 //		renderGrids(g2d);
 
 		g2d.translate(-(int)viewportX, -(int)viewportY);
-		
-		g2d.setColor(Color.BLACK);
-		g2d.fillRect(0, 0, 100, 100);
 //		renderCircuit(g2d);
 //		if (!isReadOnlyMode)
 //			renderTool(g2d);
 //		renderUserCursors(g2d);
+		
+		engine.render(g2d);
+		
 		g2d.translate((int)viewportX, (int)viewportY);
 
 		g2d.scale(1/scale, 1/scale);

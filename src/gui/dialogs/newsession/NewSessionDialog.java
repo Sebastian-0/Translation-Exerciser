@@ -69,6 +69,8 @@ public class NewSessionDialog extends JDialog {
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		setLocationRelativeTo((Component) ui);
+		
+		getRootPane().setDefaultButton(startButton);
 	}
 	
 	
