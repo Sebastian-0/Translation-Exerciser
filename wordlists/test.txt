@@ -1,7 +1,0 @@
-1
-Test list
-
-1;Hello = Hej;Tjena
-2;Cake = Tårta
-3;Triangle = Triangel
-4;More = Mer

@@ -1,8 +1,10 @@
 package database.io;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -12,12 +14,12 @@ import database.WordList;
 public class WordListIO {
 	
 	public WordList read(File input) throws IOException {
-		WordList list = new WordList();
-		
 		BufferedReader in = new BufferedReader(new FileReader(input));
 		
+		WordList list = new WordList();
 		list.id = Integer.parseInt(in.readLine());
 		list.name = in.readLine();
+		list.listPath = input;
 		
 		while (true) {
 			String wordLine = in.readLine();
@@ -25,14 +27,14 @@ public class WordListIO {
 				break;
 			
 			if (!wordLine.isEmpty()) {
-				String[] tokens = wordLine.split("\\s+=\\s+");
+				String[] tokens = wordLine.split("\\s*=\\s*");
 				
-				String[] wordTokens = tokens[0].split(";");
+				String[] wordTokens = tokens[0].split("\\s*;\\s*");
 				
 				Word word = new Word();
 				word.id = Integer.parseInt(wordTokens[0]);
 				word.word = wordTokens[1];
-				word.translations.addAll(Arrays.asList(tokens[1].split(";")));
+				word.translations.addAll(Arrays.asList(tokens[1].split("\\s*;\\s*")));
 				
 				list.words.add(word);
 			}
@@ -44,7 +46,24 @@ public class WordListIO {
 	}
 	
 	
+	public void write(WordList list) throws IOException {
+		BufferedWriter writer = new BufferedWriter(new FileWriter(list.listPath));
+
+		writer.write(list.id + "\n");
+		writer.write(list.name + "\n");
+		for (Word word : list.words) {
+			String translations = "";
+			for (String translation : word.translations) {
+				translations += translation + "; ";
+			}
+			writer.write(word.id + "; " + word.word + " = " + translations.substring(0, translations.length() - 2) + "\n");
+		}
+		
+		writer.close();
+	}
+
+
 	public static void main(String[] args) throws IOException {
-		new WordListIO().read(new File("wordlists/test.txt"));
+		new WordListIO().read(new File("wordlists/list-1.txt"));
 	}
 }

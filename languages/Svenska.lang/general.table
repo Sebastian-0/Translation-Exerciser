@@ -80,8 +80,7 @@ protection_level_allow_read = Tillåt läsning
 
 
 // File descriptions
-file_description_circuit = Kretsfiler
-file_description_module  = Modulfiler
+file_description_list_source = Ordlistefiler
 
 // Program texts
 window_title = Translation Exerciser

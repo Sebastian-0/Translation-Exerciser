@@ -1,0 +1,33 @@
+2
+page1
+5; titter = fnissa
+6; anoint = smörja
+7; gangrenous = drabbad av kallbrand/pest
+8; arcade = rad av valvbågar
+9; sardonic = hånfull
+10; satyr = grekisk gud (faun)
+11; succubae = kvinnlig demon, våldtar män
+12; aegipan = gregisk gud (getman)
+13; incubus = manlig demon, våldtar kvinnor
+14; lemur = lemur (apa)
+15; insidious = förrädisk
+16; certitude = säkerhet
+17; furtive = hemlig
+18; poignant = bitter; skarp
+19; teeming = myllrande
+20; pinnacle = tornspira
+21; wane = avta
+22; firmament = himlavalv
+23; redolent = luktar sött
+24; dormer = vindsfönster
+25; squalor = smutsighet
+26; elephantiasis = oönskad stor tillväxt
+27; garish = prålig
+28; fragrance = söt doft
+29; aught = något [alls]
+30; ineffable = outsäglig
+31; stridor = strävt, gällt eller knarrande ljud
+32; sentient = känslig
+33; stalwart = robust; trogen
+34; ignoble = ovärdig; tarvlig
+32; sentient = känslig

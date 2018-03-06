@@ -22,6 +22,8 @@ public class AnswerBlock extends AbstractBlock {
 	private boolean isHighlighted;
 	private State state;
 	
+	private int width;
+	
 	public AnswerBlock(WordBlock connectedWord, int x, int y, boolean rightCentered) {
 		super(x, y, rightCentered);
 		this.connectedWord = connectedWord;
@@ -54,7 +56,7 @@ public class AnswerBlock extends AbstractBlock {
 
 	@Override
 	public int getWidth() {
-		return 60;
+		return width;
 	}
 	
 	public String getConnectedWord() {
@@ -63,6 +65,10 @@ public class AnswerBlock extends AbstractBlock {
 	
 	public boolean isDone() {
 		return state == State.Done;
+	}
+	
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 	public void setHighlighted(boolean isHighlighted) {

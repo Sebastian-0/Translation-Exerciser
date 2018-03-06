@@ -1,4 +1,6 @@
 
-- Skapa gui-backend för ExercisingPanel med "komponenterna", låt interaktion ske via ett vertkyg
 - Lås edit-pane i programmets början 
 - Lägg in ny dialog för "practice previous errors", ska bara funka om det finns previous errors
+- Lista med alternativ ska kunna scrollas separat från den vänstra
+- Import-dialogen ska bli mer avancerad och tillåta namngivning
+- Låt targets anpassa bredden efter bredaste översättningen

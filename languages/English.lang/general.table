@@ -80,8 +80,7 @@ protection_level_allow_read = Allow Read
 
 
 // File descriptions
-file_description_circuit = Circuit files
-file_description_module  = Module files
+file_description_list_source = Word list files
 
 // Program texts
 window_title = Translation Exerciser

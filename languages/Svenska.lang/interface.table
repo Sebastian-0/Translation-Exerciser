@@ -2,8 +2,9 @@
 // Menu bar
 menubar_file = Arkiv
 
-menubar_new  = Ny Session
-menubar_quit = Avsluta
+menubar_new         = Ny Session
+menubar_import_list = Importera ordlista
+menubar_quit        = Avsluta
 
 // Exerciser surface
 surface_zoom = Zoom

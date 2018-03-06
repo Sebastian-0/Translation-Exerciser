@@ -2,8 +2,9 @@
 // Menu bar
 menubar_file = File
 
-menubar_new  = New Session
-menubar_quit = Quit
+menubar_new         = New Session
+menubar_import_list = Import words
+menubar_quit        = Quit
 
 // Exerciser surface
 surface_zoom = Zoom

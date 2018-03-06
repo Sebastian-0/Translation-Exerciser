@@ -30,6 +30,8 @@ public class WordEngine {
 		this.session = session; 
 		wordsToTranslate.clear();
 		alternatives.clear();
+		targets.clear();
+		movingWord = null;
 		
 		List<String> words = session.getWords();
 		List<String> translations = session.getTranslations();
@@ -38,20 +40,21 @@ public class WordEngine {
 		collator.setStrength(Collator.PRIMARY);
 		Collections.shuffle(words);
 		translations.sort(collator);
-		
-		int x = 100;
+				
 		int y = 50;
+		int x = 350;
+		for (String word : translations) {
+			WordBlock wordBlock = new WordBlock(word, x, y, false);
+			alternatives.add(wordBlock);
+			y += 1.5 * AbstractBlock.HEIGHT;
+		}
+
+		x = 100;
+		y = 50;
 		for (String word : words) {
 			WordBlock newWord = new WordBlock(word, x, y, true);
 			wordsToTranslate.add(newWord);
 			targets.add(new AnswerBlock(newWord, x + AbstractBlock.HEIGHT/2, y, false));
-			y += 1.5 * AbstractBlock.HEIGHT;
-		}
-		
-		y = 50;
-		x += 250;
-		for (String word : translations) {
-			alternatives.add(new WordBlock(word, x, y, false));
 			y += 1.5 * AbstractBlock.HEIGHT;
 		}
 	}
@@ -60,11 +63,14 @@ public class WordEngine {
 		for (WordBlock wordBlock : wordsToTranslate) {
 			wordBlock.render(g2d);
 		}
-		for (AnswerBlock answerBlock : targets) {
-			answerBlock.render(g2d);
-		}
+		int widest = 0;
 		for (WordBlock wordBlock : alternatives) {
+			widest = Math.max(widest, wordBlock.getWidth());
 			wordBlock.render(g2d);
+		}
+		for (AnswerBlock answerBlock : targets) {
+			answerBlock.setWidth(widest);
+			answerBlock.render(g2d);
 		}
 		if (movingWord != null) {
 			movingWord.render(g2d);

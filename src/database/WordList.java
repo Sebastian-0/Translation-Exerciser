@@ -1,5 +1,6 @@
 package database;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 public class WordList {
 	public int id;
 	public String name;
+	
+	public File listPath;
 
 	public List<Word> words;
 	

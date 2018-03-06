@@ -21,6 +21,7 @@ public class MenuBar extends JMenuBar
   {
     JMenu fileMenu = new JMenu(Table.get("menubar_file"));
     fileMenu.add(new NewSessionMenuItem(window));
+    fileMenu.add(new ImportWordListMenuItem(window));
     fileMenu.addSeparator();
     fileMenu.add(new ExitMenuItem(window));
     add(fileMenu);

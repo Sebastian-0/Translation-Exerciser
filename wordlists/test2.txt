@@ -1,7 +1,0 @@
-2
-Test list 2 --------------------------
-
-1;Hello = Hej
-2;Cake = T�rta
-3;Triangle = Triangel
-4;More = Mer

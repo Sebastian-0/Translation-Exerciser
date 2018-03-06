@@ -82,8 +82,7 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 	private boolean initExerciser() {
 		exerciser = new WordExerciser();
 		try {
-			exerciser.load(new File(Config.get(Config.WORDLIST_FOLDER_PATH)),
-					new File(Config.get(Config.DATA_FOLDER_PATH) + File.separator + Config.FAULTS_FILE));
+			exerciser.load();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(
 					null,
