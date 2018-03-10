@@ -1,7 +1,9 @@
 package gui.model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +13,6 @@ import backend.Session;
 import backend.Session.Result;
 
 public class WordEngine {
-	
 	private Session session;
 
 	private List<WordBlock> wordsToTranslate;
@@ -19,6 +20,9 @@ public class WordEngine {
 	private List<WordBlock> alternatives;
 	
 	private WordBlock movingWord;
+
+	private int offsetAlternatives;
+	private int offsetTargets;
 	
 	public WordEngine() {
 		wordsToTranslate = new ArrayList<>();
@@ -32,6 +36,8 @@ public class WordEngine {
 		alternatives.clear();
 		targets.clear();
 		movingWord = null;
+		offsetAlternatives = 0;
+		offsetTargets = 0;
 		
 		List<String> words = session.getWords();
 		List<String> translations = session.getTranslations();
@@ -40,38 +46,46 @@ public class WordEngine {
 		collator.setStrength(Collator.PRIMARY);
 		Collections.shuffle(words);
 		translations.sort(collator);
+		
+		final int offset = 50;
 				
-		int y = 50;
-		int x = 350;
+		int y = offset;
+		int x = offset;
+		int widest = 0;
 		for (String word : translations) {
 			WordBlock wordBlock = new WordBlock(word, x, y, false);
 			alternatives.add(wordBlock);
 			y += 1.5 * AbstractBlock.HEIGHT;
+			widest = Math.max(widest, wordBlock.getWidth());
 		}
 
-		x = 100;
-		y = 50;
+		x = -widest - offset - AbstractBlock.HEIGHT/2;
+		y = offset;
 		for (String word : words) {
 			WordBlock newWord = new WordBlock(word, x, y, true);
+			AnswerBlock answerBlock = new AnswerBlock(newWord, x + AbstractBlock.HEIGHT/2, y, false);
 			wordsToTranslate.add(newWord);
-			targets.add(new AnswerBlock(newWord, x + AbstractBlock.HEIGHT/2, y, false));
+			targets.add(answerBlock);
 			y += 1.5 * AbstractBlock.HEIGHT;
+			answerBlock.setWidth(widest);
 		}
 	}
 
 	public void render(Graphics2D g2d) {
+		g2d.translate(0, offsetAlternatives);
+		for (WordBlock wordBlock : alternatives) {
+			wordBlock.render(g2d);
+		}
+
+		g2d.translate(0, offsetTargets - offsetAlternatives);
 		for (WordBlock wordBlock : wordsToTranslate) {
 			wordBlock.render(g2d);
 		}
-		int widest = 0;
-		for (WordBlock wordBlock : alternatives) {
-			widest = Math.max(widest, wordBlock.getWidth());
-			wordBlock.render(g2d);
-		}
 		for (AnswerBlock answerBlock : targets) {
-			answerBlock.setWidth(widest);
 			answerBlock.render(g2d);
 		}
+		g2d.translate(0, -offsetTargets);
+		
 		if (movingWord != null) {
 			movingWord.render(g2d);
 		}
@@ -83,7 +97,7 @@ public class WordEngine {
 			for (WordBlock word : alternatives) {
 				int x = e.getX() + viewportX;
 				int y = e.getY() + viewportY;
-				if (word.contains(x, y)) {
+				if (word.contains(x, y - offsetAlternatives)) {
 					movingWord = new WordBlock(word);
 					movingWord.setCenter(x, y);
 					return true;
@@ -98,7 +112,7 @@ public class WordEngine {
 			int x = e.getX() + viewportX;
 			int y = e.getY() + viewportY;
 			for (AnswerBlock target : targets) {
-				if (target.contains(x, y) && !target.isDone()) {
+				if (target.contains(x, y - offsetTargets) && !target.isDone()) {
 					target.setHighlighted(false);
 					Result result = session.tryTranslate(target.getConnectedWord(), movingWord.toString());
 					target.updateWithResult(result, movingWord.toString());
@@ -117,19 +131,42 @@ public class WordEngine {
 			int y = e.getY() + viewportY;
 			movingWord.setCenter(x, y);
 			
-			for (AnswerBlock target : targets) {
-				if (target.contains(x, y)) {
-					target.setHighlighted(true);
-				} else {
-					target.setHighlighted(false);
-				}
-			}
+			updateHighlight(x, y);
 			
 			return true;
 		}
 		return false;
 	}
 
+	private void updateHighlight(int x, int y) {
+		for (AnswerBlock target : targets) {
+			if (target.contains(x, y - offsetTargets)) {
+				target.setHighlighted(true);
+			} else {
+				target.setHighlighted(false);
+			}
+		}
+	}
+
+	public void mouseWheelMoved(MouseWheelEvent e, float scale, int viewportX, int viewportY) {
+		int x = e.getX() + viewportX;
+		int y = e.getY() + viewportY;
+		
+		final int scrollStep = (int) (30 * 1/scale);
+		if (x > 0) {
+			offsetAlternatives -= e.getWheelRotation()*scrollStep;
+		} else {
+			offsetTargets -= e.getWheelRotation()*scrollStep;
+		}
+
+		// TODO Stop scrolling when all are visible
+//		offsetAlternatives = Math.min(0, offsetAlternatives);
+//		offsetTargets = Math.min(0, offsetTargets);
+		if (movingWord != null)
+			updateHighlight(x, y);
+	}
+
+	
 	private boolean isLeftMouseButton(MouseEvent e) {
 		return e.getButton() == MouseEvent.BUTTON1;
 	}
@@ -141,5 +178,4 @@ public class WordEngine {
 	private boolean isRightMouseButton(MouseEvent e) {
 		return e.getButton() == MouseEvent.BUTTON3;
 	}
-
 }

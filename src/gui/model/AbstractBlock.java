@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
+import util.FontUtils;
+
 public abstract class AbstractBlock {
 	public static final int HEIGHT = 32;
 	
@@ -16,22 +18,27 @@ public abstract class AbstractBlock {
 	private int x;
 	private int y;
 	
-	public AbstractBlock(int x, int y, boolean rightCentered) {
+	protected int width;
+	
+	public AbstractBlock(String text, int x, int y, boolean rightCentered) {
+		this.word = text;
 		this.x = x;
 		this.y = y;
 		this.rightCentered = rightCentered;
+		font = FontUtils.getDefaultFont().deriveFont(Font.BOLD);
+		width = FontUtils.getFontMetrics(font).stringWidth(word) + HEIGHT/2;
 	}
 	
 	public AbstractBlock(AbstractBlock other) {
+		word = other.word;
+		font = other.font;
 		x = other.x;
 		y = other.y;
+		width = other.width;
 		rightCentered = other.rightCentered;
 	}
 
 	public void render(Graphics2D g2d) {
-		if (font == null) {
-			font = g2d.getFont().deriveFont(Font.BOLD);
-		}
 		g2d.setFont(font);
 		
 		g2d.setColor(Color.GRAY);
@@ -49,7 +56,9 @@ public abstract class AbstractBlock {
 		g2d.drawString(word, getCenterX() - metrics.stringWidth(word)/2, getCenterY() - metrics.getHeight() / 2 + metrics.getAscent());
 	}
 
-	public abstract int getWidth();
+	public int getWidth() {
+		return width;
+	}
 	public int getHeight() {
 		return HEIGHT;
 	}

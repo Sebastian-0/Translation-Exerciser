@@ -7,6 +7,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -21,7 +24,7 @@ public class ExercisingPanel extends JPanel {
 	private static final float MINIMUM_SCALE_SIZE = 1 / 2f;
 	private static final float MAXIMUM_SCALE_SIZE = 2f;
 
-	private boolean isMovingViewPort;
+//	private boolean isMovingViewPort;
 	private float viewportX;
 	private float viewportY;
 
@@ -41,16 +44,19 @@ public class ExercisingPanel extends JPanel {
 		addMouseListener(mouseListener);
 		addMouseMotionListener(mouseListener);
 		addMouseWheelListener(mouseListener);
+		addComponentListener(componentListener);
 
 		labelFont = getFont().deriveFont(Font.BOLD, 12f);
 
 		scale = 1;
 
 		engine = new WordEngine();
+		
+		resetViewport();
 	}
 
 	public void resetViewport() {
-		viewportX = 0;
+		viewportX = -getWidth()/2;
 		viewportY = 0;
 	}
 
@@ -118,6 +124,10 @@ public class ExercisingPanel extends JPanel {
 		g2d.translate((int) viewportX, (int) viewportY);
 
 		g2d.scale(1 / scale, 1 / scale);
+		
+
+		g2d.setColor(Color.BLACK);
+		g2d.drawLine(getWidth()/2, 0, getWidth()/2, getHeight());
 
 		renderZoomLabel(g2d);
 	}
@@ -149,7 +159,7 @@ public class ExercisingPanel extends JPanel {
 			if (usedInput) {
 				repaint();
 			} else if (e.getButton() == MouseEvent.BUTTON2) {
-				isMovingViewPort = true;
+//				isMovingViewPort = true;
 			}
 		}
 
@@ -157,11 +167,12 @@ public class ExercisingPanel extends JPanel {
 		public void mouseReleased(MouseEvent e) {
 			scaleMouseEvent(e);
 
-			if (isMovingViewPort) {
-				isMovingViewPort = false;
-				viewportX = (int) viewportX; // Remove any half-pixels from the viewport
-				viewportY = (int) viewportY;
-			} else if (engine.mouseReleased(e, (int) viewportX, (int) viewportY)) {
+//			if (isMovingViewPort) {
+//				isMovingViewPort = false;
+//				viewportX = (int) viewportX; // Remove any half-pixels from the viewport
+//				viewportY = (int) viewportY;
+//			} else
+				if (engine.mouseReleased(e, (int) viewportX, (int) viewportY)) {
 				repaint();
 			}
 		}
@@ -183,21 +194,15 @@ public class ExercisingPanel extends JPanel {
 			mouseX = e.getX();
 			mouseY = e.getY();
 
-			if (isMovingViewPort) {
-				viewportX += scaleValue(oldX - mouseX);
-				viewportY += scaleValue(oldY - mouseY);
-			} else {
+//			if (isMovingViewPort) {
+//				viewportX += scaleValue(oldX - mouseX);
+//				viewportY += scaleValue(oldY - mouseY);
+//			} else {
 				scaleMouseEvent(e);
 
 				engine.mouseMoved(e, wasDragged, (int) viewportX, (int) viewportY);
-			}
+//			}
 			repaint();
-		}
-
-		private void scaleMouseEvent(MouseEvent e) {
-			int xd = (int) scaleValue(e.getX()) - e.getX();
-			int yd = (int) scaleValue(e.getY()) - e.getY();
-			e.translatePoint(xd, yd);
 		}
 
 		@Override
@@ -207,7 +212,25 @@ public class ExercisingPanel extends JPanel {
 					zoomIn();
 				else
 					zoomOut();
+			} else {
+				scaleMouseEvent(e);
+				engine.mouseWheelMoved(e, scale, (int) viewportX, (int) viewportY);
+				repaint();
 			}
 		}
+
+		private void scaleMouseEvent(MouseEvent e) {
+			int xd = (int) scaleValue(e.getX()) - e.getX();
+			int yd = (int) scaleValue(e.getY()) - e.getY();
+			e.translatePoint(xd, yd);
+		}
 	};
+	
+	
+	private ComponentListener componentListener = new ComponentAdapter() {
+		@Override
+		public void componentResized(ComponentEvent e) {
+			resetViewport();
+		}
+	}; 
 }

@@ -22,13 +22,10 @@ public class AnswerBlock extends AbstractBlock {
 	private boolean isHighlighted;
 	private State state;
 	
-	private int width;
-	
 	public AnswerBlock(WordBlock connectedWord, int x, int y, boolean rightCentered) {
-		super(x, y, rightCentered);
+		super("?", x, y, rightCentered);
 		this.connectedWord = connectedWord;
 		state = State.WordsLeft;
-		word = "?";
 	}
 	
 	@Override
@@ -54,11 +51,6 @@ public class AnswerBlock extends AbstractBlock {
 		super.drawWord(g2d);
 	}
 
-	@Override
-	public int getWidth() {
-		return width;
-	}
-	
 	public String getConnectedWord() {
 		return connectedWord.toString();
 	}
