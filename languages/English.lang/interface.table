@@ -8,3 +8,6 @@ menubar_quit        = Quit
 
 // Exerciser surface
 surface_zoom = Zoom
+
+// Bottom panel
+bottom_finish_session = Finish session

@@ -14,9 +14,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import backend.Session;
+import backend.Statistics;
 import config.Table;
 import gui.model.WordEngine;
 
@@ -36,8 +39,10 @@ public class ExercisingPanel extends JPanel {
 	private float scale;
 
 	private WordEngine engine;
+	private boolean sessionRunning; 
 
 	public ExercisingPanel() {
+		setBorder(new LineBorder(Color.BLACK));
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(400, 400));
 
@@ -95,11 +100,31 @@ public class ExercisingPanel extends JPanel {
 		viewportY += offsetY;
 	}
 
+	
 	public void start(Session session) {
 		resetViewport();
 		engine.start(session);
+		sessionRunning = true;
 		repaint();
 	}
+
+	public void stop() {
+		int result = JOptionPane.YES_OPTION;
+		if (!engine.areAllAnswered()) {
+			result = JOptionPane.showConfirmDialog(this,
+					Table.get("session_end_message"),
+					Table.get("popup_title_are_you_sure"),
+					JOptionPane.YES_NO_OPTION,
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+		if (result == JOptionPane.YES_OPTION) {
+			Statistics stats = engine.stop();
+			// TODO here! Present the stats in a window.
+			sessionRunning = false;
+			repaint();
+		}
+	}
+	
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -109,10 +134,10 @@ public class ExercisingPanel extends JPanel {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
+		g2d.setColor(Color.BLACK);
+		g2d.drawLine(getWidth()/2, 0, getWidth()/2, getHeight());
+
 		g2d.scale(scale, scale);
-
-		// renderGrids(g2d);
-
 		g2d.translate(-(int) viewportX, -(int) viewportY);
 		// renderCircuit(g2d);
 		// if (!isReadOnlyMode)
@@ -122,14 +147,29 @@ public class ExercisingPanel extends JPanel {
 		engine.render(g2d);
 
 		g2d.translate((int) viewportX, (int) viewportY);
-
 		g2d.scale(1 / scale, 1 / scale);
 		
-
-		g2d.setColor(Color.BLACK);
-		g2d.drawLine(getWidth()/2, 0, getWidth()/2, getHeight());
+		if (!sessionRunning) {
+			renderDisabledStripes(g2d);
+		}
 
 		renderZoomLabel(g2d);
+	}
+
+	private void renderDisabledStripes(Graphics2D g2d) {
+		g2d.setColor(new Color(200, 200, 200, 50));
+		g2d.rotate(Math.PI/4, getWidth()/2, getHeight()/2);
+		
+		final int stripeWidth = 50;
+		
+		int distance = (int) Math.sqrt(getWidth()*getWidth() + getHeight()*getHeight());
+		int pos = getHeight()/2-distance/2 + stripeWidth;
+		while (pos < getHeight()/2 + distance/2) {
+			g2d.fillRect(getWidth()/2 - distance/2, pos, distance, stripeWidth);
+			pos += stripeWidth*2;
+		}
+		
+		g2d.rotate(-Math.PI/4, getWidth()/2, getHeight()/2);
 	}
 
 	private void renderZoomLabel(Graphics2D g2d) {
@@ -154,25 +194,15 @@ public class ExercisingPanel extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			scaleMouseEvent(e);
-
-			boolean usedInput = engine.mousePressed(e, (int) viewportX, (int) viewportY);
-			if (usedInput) {
+			if (sessionRunning && engine.mousePressed(e, (int) viewportX, (int) viewportY)) {
 				repaint();
-			} else if (e.getButton() == MouseEvent.BUTTON2) {
-//				isMovingViewPort = true;
 			}
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			scaleMouseEvent(e);
-
-//			if (isMovingViewPort) {
-//				isMovingViewPort = false;
-//				viewportX = (int) viewportX; // Remove any half-pixels from the viewport
-//				viewportY = (int) viewportY;
-//			} else
-				if (engine.mouseReleased(e, (int) viewportX, (int) viewportY)) {
+			if (sessionRunning && engine.mouseReleased(e, (int) viewportX, (int) viewportY)) {
 				repaint();
 			}
 		}
@@ -188,20 +218,11 @@ public class ExercisingPanel extends JPanel {
 		}
 
 		private void mouseMoved(MouseEvent e, boolean wasDragged) {
-			int oldX = mouseX;
-			int oldY = mouseY;
-
 			mouseX = e.getX();
 			mouseY = e.getY();
-
-//			if (isMovingViewPort) {
-//				viewportX += scaleValue(oldX - mouseX);
-//				viewportY += scaleValue(oldY - mouseY);
-//			} else {
-				scaleMouseEvent(e);
-
-				engine.mouseMoved(e, wasDragged, (int) viewportX, (int) viewportY);
-//			}
+			
+			scaleMouseEvent(e);
+			engine.mouseMoved(e, wasDragged, (int) viewportX, (int) viewportY);
 			repaint();
 		}
 

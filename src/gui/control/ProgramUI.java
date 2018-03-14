@@ -9,4 +9,6 @@ public interface ProgramUI {
 	
 	public void startExercising(int[] listIds, boolean isPractising);
 	public void startExercisingFaulty(boolean isPractising);
+
+	public void stopExercising();
 }

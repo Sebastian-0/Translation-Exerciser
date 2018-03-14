@@ -23,7 +23,7 @@ import javax.imageio.ImageIO;
 
 import sutilities.Debugger;
 
-public class TextureStorage // TODO TextureStorage; Move to a separate package?
+public class TextureStorage
 {
   private static TextureStorage textureStorage;
   private static BufferedImage missingTexture;

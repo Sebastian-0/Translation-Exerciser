@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -22,6 +23,7 @@ import config.Table;
 import gui.control.ProgramUI;
 import gui.menubar.MenuBar;
 import sutilities.Debugger;
+import util.SimpleGridBagLayout;
 import util.TextureStorage;
 
 public class TranslationExerciser extends JFrame implements ProgramUI {
@@ -114,8 +116,10 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 		
 		setJMenuBar(new MenuBar(this));
 		
+		SimpleGridBagLayout layout = new SimpleGridBagLayout(this);
 		exercisingPanel = new ExercisingPanel();
-		add(exercisingPanel);
+		layout.addToGrid(exercisingPanel, 0, 0, 1, 1, GridBagConstraints.BOTH, 1, 1);
+		layout.addToGrid(new BottomPanel(this), 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 1, 0);
 		
 		pack(); // Pack two times to set minimum size before resizing to the preferred size
 		setMinimumSize(getSize());
@@ -174,6 +178,12 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 	@Override
 	public void startExercisingFaulty(boolean isPractising) {
 		exercisingPanel.start(exerciser.startExercisingFaults(isPractising, false)); // TODO Proper pass of "includeZeroDecay"
+	}
+	
+	
+	@Override
+	public void stopExercising() {
+		exercisingPanel.stop();
 	}
 	
 	

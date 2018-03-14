@@ -17,6 +17,7 @@ import_failed_title      = Import failed
 import_failed_bad_format = The file you selected was not properly formatted!
 import_failed_folder     = The target you selected is not a file!
 
+
 // New session dialog
 new_session_title         = New training session
 new_session_word_lists    = Word lists
@@ -24,3 +25,7 @@ new_session_exercise_mode = Mode
 new_session_practice      = Practice
 new_session_test          = Test
 new_session_start         = Start training
+
+
+// Confirm session end dialog
+session_end_message = There are still words lacking translations, if you continue they will be marked as errors. Continue?

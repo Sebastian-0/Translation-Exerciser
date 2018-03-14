@@ -25,3 +25,7 @@ new_session_exercise_mode = Läge
 new_session_practice      = Öva inför test
 new_session_test          = Test
 new_session_start         = Starta träning
+
+
+// Confirm session end dialog
+session_end_message = Det finns fortfarande oöversatta ord kvar, om du fortsätter så kommer de markeras som fel. Fortsätta?

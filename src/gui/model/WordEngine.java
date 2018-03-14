@@ -1,6 +1,5 @@
 package gui.model;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -10,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import backend.Session;
+import backend.Statistics;
 import backend.Session.Result;
 
 public class WordEngine {
@@ -71,6 +71,10 @@ public class WordEngine {
 		}
 	}
 
+	public Statistics stop() {
+		return session.end();
+	}
+
 	public void render(Graphics2D g2d) {
 		g2d.translate(0, offsetAlternatives);
 		for (WordBlock wordBlock : alternatives) {
@@ -89,6 +93,10 @@ public class WordEngine {
 		if (movingWord != null) {
 			movingWord.render(g2d);
 		}
+	}
+	
+	public boolean areAllAnswered() {
+		return session.allTranslated();
 	}
 	
 
