@@ -8,6 +8,7 @@ invalid_locale_data  = The Locale data specified in this String Table is incorre
 // Default button text
 button_ok     = Ok
 button_cancel = Cancel
+button_close  = Close
 
 // Option pane text override
 optionpane_yes    = Yes

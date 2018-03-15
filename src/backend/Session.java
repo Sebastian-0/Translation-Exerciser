@@ -118,6 +118,7 @@ public class Session {
 			stats.translationsNotAnswered += missedTranslations;
 			stats.translationsIncorrect += missedTranslations;
 		}
+		stats.amountOfTranslations = stats.translationsCorrect + stats.translationsIncorrect;
 		return stats;
 	}
 }

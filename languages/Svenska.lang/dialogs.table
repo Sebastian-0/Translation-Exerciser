@@ -29,3 +29,8 @@ new_session_start         = Starta träning
 
 // Confirm session end dialog
 session_end_message = Det finns fortfarande oöversatta ord kvar, om du fortsätter så kommer de markeras som fel. Fortsätta?
+
+
+// Session results dialog
+session_results_title = Resultat
+session_results_message = Ord:\n Totalt antal: {0}\n  Perfekta: {1} ({2}%)\n  Korrekta: {3} ({4}%)\n  Partiellt korrekta: {5} ({6}%)\n  Felaktiga: {7} ({8}%)\n    Varav {9} obesvarade ({10}% av Felaktiga)\n\nÖversättningar:\n  Totalt antal: {11}\n  Korrekta: {12} ({13}%)\n  Felaktiga: {14} ({15}%)\n    varav {16} obesvarade ({17}% av Felaktiga)

@@ -11,4 +11,12 @@ public class BottomPanel extends JPanel {
 		finishSessionButton = new FinishSessionButton(ui);
 		add(finishSessionButton);
 	}
+
+	public void sessionStarted() {
+		finishSessionButton.setEnabled(true);
+	}
+
+	public void sessionEnded() {
+		finishSessionButton.setEnabled(false);
+	}
 }

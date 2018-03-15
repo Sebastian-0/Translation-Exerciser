@@ -29,3 +29,8 @@ new_session_start         = Start training
 
 // Confirm session end dialog
 session_end_message = There are still words lacking translations, if you continue they will be marked as errors. Continue?
+
+
+// Session results dialog
+session_results_title = Results
+session_results_message = Words:\n Total amount: {0}\n  Perfect: {1} ({2}%)\n  Correct: {3} ({4}%)\n  Partially correct: {5} ({6}%)\n  Incorrect: {7} ({8}%)\n    with {9} unanswered ({10}% of Incorrect)\n\nTranslations:\n  Total amount: {11}\n  Correct: {12} ({13}%)\n  Incorrect: {14} ({15}%)\n    with {16} unanswered ({17}% of Incorrect)  

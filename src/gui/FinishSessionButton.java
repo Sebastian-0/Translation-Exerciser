@@ -16,6 +16,7 @@ public class FinishSessionButton extends JButton {
 		super(Table.get("bottom_finish_session"));
 		this.ui = ui;
 		addActionListener(actionListener);
+		setEnabled(false);
 	}
 
 	private ActionListener actionListener = new ActionListener() {

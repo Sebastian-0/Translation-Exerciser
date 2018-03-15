@@ -1,8 +1,5 @@
 
-- Lås edit-pane i programmets början 
 - Lägg in ny dialog för "practice previous errors", ska bara funka om det finns previous errors
 - Import-dialogen ska bli mer avancerad och tillåta namngivning
-- Låt targets anpassa bredden efter bredaste översättningen
-
 
 - "Reveal answer" ska inte räknas som felsvar utan som "unanswered", mao. låt engine sluta ta emot svar för det ordet utan att meddela session.

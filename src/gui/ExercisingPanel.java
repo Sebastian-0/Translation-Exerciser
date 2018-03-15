@@ -21,6 +21,7 @@ import javax.swing.border.LineBorder;
 import backend.Session;
 import backend.Statistics;
 import config.Table;
+import gui.dialogs.sessionresults.SessionResultsDialog;
 import gui.model.WordEngine;
 
 public class ExercisingPanel extends JPanel {
@@ -108,7 +109,7 @@ public class ExercisingPanel extends JPanel {
 		repaint();
 	}
 
-	public void stop() {
+	public Statistics stop() {
 		int result = JOptionPane.YES_OPTION;
 		if (!engine.areAllAnswered()) {
 			result = JOptionPane.showConfirmDialog(this,
@@ -119,10 +120,11 @@ public class ExercisingPanel extends JPanel {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			Statistics stats = engine.stop();
-			// TODO here! Present the stats in a window.
 			sessionRunning = false;
 			repaint();
+			return stats;
 		}
+		return null;
 	}
 	
 

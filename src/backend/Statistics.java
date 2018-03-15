@@ -2,6 +2,7 @@ package backend;
 
 public class Statistics {
 	public int amountOfWords;
+	public int amountOfTranslations;
 	
 	/* Words with no answer attempts */
 	public int wordsNoAnswer;

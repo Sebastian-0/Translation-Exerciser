@@ -17,10 +17,12 @@ import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import backend.Statistics;
 import backend.WordExerciser;
 import config.Config;
 import config.Table;
 import gui.control.ProgramUI;
+import gui.dialogs.sessionresults.SessionResultsDialog;
 import gui.menubar.MenuBar;
 import sutilities.Debugger;
 import util.SimpleGridBagLayout;
@@ -29,7 +31,8 @@ import util.TextureStorage;
 public class TranslationExerciser extends JFrame implements ProgramUI {
 	
 	private ExercisingPanel exercisingPanel;
-	
+	private BottomPanel bottomPanel;
+
 	private WordExerciser exerciser;
 
 	public TranslationExerciser() {
@@ -118,8 +121,10 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 		
 		SimpleGridBagLayout layout = new SimpleGridBagLayout(this);
 		exercisingPanel = new ExercisingPanel();
+		bottomPanel = new BottomPanel(this);
+		
 		layout.addToGrid(exercisingPanel, 0, 0, 1, 1, GridBagConstraints.BOTH, 1, 1);
-		layout.addToGrid(new BottomPanel(this), 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 1, 0);
+		layout.addToGrid(bottomPanel, 0, 1, 1, 1, GridBagConstraints.HORIZONTAL, 1, 0);
 		
 		pack(); // Pack two times to set minimum size before resizing to the preferred size
 		setMinimumSize(getSize());
@@ -172,18 +177,25 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 	@Override
 	public void startExercising(int[] listIds, boolean isPractising) {
 		exercisingPanel.start(exerciser.startExercising(isPractising, listIds));
+		bottomPanel.sessionStarted();
 	}
 	
 	
 	@Override
 	public void startExercisingFaulty(boolean isPractising) {
 		exercisingPanel.start(exerciser.startExercisingFaults(isPractising, false)); // TODO Proper pass of "includeZeroDecay"
+		bottomPanel.sessionStarted();
 	}
 	
 	
 	@Override
 	public void stopExercising() {
-		exercisingPanel.stop();
+		Statistics stats = exercisingPanel.stop();
+		if (stats != null) {
+			bottomPanel.sessionEnded();
+			SessionResultsDialog dialog = new SessionResultsDialog(this, stats);
+			dialog.setVisible(true);
+		}
 	}
 	
 	
@@ -213,11 +225,7 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 				Config.put(Config.LAST_WINDOW_HEIGHT, "" + getHeight());
 		}
 	};
-	
 
-		 
-		
-		
 	public static void main(String[] args)
 	{
 		Debugger.setIsInDebugMode(true);

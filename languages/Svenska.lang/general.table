@@ -8,6 +8,7 @@ invalid_locale_data  = Locale-datan i den här texttabellen är felaktig
 // Default button text
 button_ok     = Ok
 button_cancel = Avbryt
+button_close  = Stäng
 
 // Option pane text override
 optionpane_yes    = Ja
