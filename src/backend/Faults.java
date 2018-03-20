@@ -18,6 +18,8 @@ public class Faults {
 	
 	private Set<Word> usedWords;
 	private Map<Integer, FaultyWord> faultyWords;
+
+	private String faultyWordFilePath;
 	
 	public Faults(Map<Integer, Word> allWords) {
 		this.allWords = allWords;
@@ -25,15 +27,19 @@ public class Faults {
 		faultyWords = new HashMap<>();
 	}
 	
-	public void load(File faultyWordFile) throws IOException {
-		List<FaultyWord> words = new FaultListIO().read(faultyWordFile);
+	public void load(String faultyWordFile) throws IOException {
+		this.faultyWordFilePath = faultyWordFile;
+		List<FaultyWord> words = new FaultListIO().read(new File(faultyWordFile));
 		for (FaultyWord word : words) {
 			faultyWords.put(word.id, word);
 		}
 	}
 	
-	public void save(File faultyWordFile) throws IOException {
-		new FaultListIO().write(faultyWordFile, new ArrayList<>(faultyWords.values()));
+	public void save() throws IOException {
+		if (faultyWordFilePath == null)
+			throw new IllegalStateException("load() must be invoked before save()");
+		
+		new FaultListIO().write(new File(faultyWordFilePath), new ArrayList<>(faultyWords.values()));
 	}
 	
 	

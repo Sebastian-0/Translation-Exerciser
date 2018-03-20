@@ -27,8 +27,9 @@ new_session_test          = Test
 new_session_start         = Starta träning
 
 
-// Confirm session end dialog
-session_end_message = Det finns fortfarande oöversatta ord kvar, om du fortsätter så kommer de markeras som fel. Fortsätta?
+// Confirm session end dialogs
+session_end_missing_translations = Det finns fortfarande oöversatta ord kvar, om du fortsätter så kommer de markeras som fel. Fortsätta?
+session_end_save_failed          = Misslyckades med att uppdatera databasen med felsvar/spara statistiken: {0}
 
 
 // Session results dialog

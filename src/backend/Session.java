@@ -1,5 +1,6 @@
 package backend;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -120,5 +121,9 @@ public class Session {
 		}
 		stats.amountOfTranslations = stats.translationsCorrect + stats.translationsIncorrect;
 		return stats;
+	}
+	
+	public void saveResults() throws IOException {
+		faults.save();
 	}
 }

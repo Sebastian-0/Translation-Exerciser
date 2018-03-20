@@ -13,6 +13,8 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.io.IOException;
+import java.text.MessageFormat;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -113,7 +115,7 @@ public class ExercisingPanel extends JPanel {
 		int result = JOptionPane.YES_OPTION;
 		if (!engine.areAllAnswered()) {
 			result = JOptionPane.showConfirmDialog(this,
-					Table.get("session_end_message"),
+					Table.get("session_end_missing_translations"),
 					Table.get("popup_title_are_you_sure"),
 					JOptionPane.YES_NO_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
@@ -122,6 +124,14 @@ public class ExercisingPanel extends JPanel {
 			Statistics stats = engine.stop();
 			sessionRunning = false;
 			repaint();
+			try {
+				engine.saveResults();
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(this,
+						MessageFormat.format(Table.get("session_end_save_failed"), e.getMessage()),
+						Table.get("popup_title_error"),
+						JOptionPane.ERROR_MESSAGE);
+			}
 			return stats;
 		}
 		return null;

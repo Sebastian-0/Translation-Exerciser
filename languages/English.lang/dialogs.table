@@ -27,8 +27,9 @@ new_session_test          = Test
 new_session_start         = Start training
 
 
-// Confirm session end dialog
-session_end_message = There are still words lacking translations, if you continue they will be marked as errors. Continue?
+// Confirm session end dialogs
+session_end_missing_translations = There are still words lacking translations, if you continue they will be marked as errors. Continue?
+session_end_save_failed          = Failed to update the fault database/save the statistics: {0}
 
 
 // Session results dialog

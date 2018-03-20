@@ -19,7 +19,6 @@ public class WordExerciser {
 	private Map<Integer, Word> allWords;
 
 	private String wordListFolderPath;
-	private String faultyWordFilePath;
 	
 	private int nextWordListId;
 	private int nextWordId;
@@ -39,9 +38,8 @@ public class WordExerciser {
 	}
 	public void load(String wordListFolderPath, String faultyWordFilePath) throws IOException {
 		this.wordListFolderPath = wordListFolderPath;
-		this.faultyWordFilePath = faultyWordFilePath;
 		loadListsInternal(new File(wordListFolderPath));
-		faults.load(new File(faultyWordFilePath));
+		faults.load(faultyWordFilePath);
 		for (Word word: allWords.values()) {
 			nextWordId = Math.max(nextWordId, word.id + 1);
 		}

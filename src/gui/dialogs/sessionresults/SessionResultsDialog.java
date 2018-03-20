@@ -48,10 +48,10 @@ public class SessionResultsDialog extends JDialog {
 				stats.wordsCorrect, String.format("%.1f", stats.wordsCorrect/(float)stats.amountOfWords*100),
 				stats.wordsPartiallyCorrect, String.format("%.1f", stats.wordsPartiallyCorrect/(float)stats.amountOfWords*100),
 				stats.wordsIncorrect, String.format("%.1f", stats.wordsIncorrect/(float)stats.amountOfWords*100),
-				stats.wordsNoAnswer, String.format("%.1f", stats.wordsNoAnswer/(float)stats.wordsIncorrect*100),
+				stats.wordsNoAnswer, String.format("%.1f", stats.wordsNoAnswer/Math.max(0.1f, stats.wordsIncorrect)*100),
 				stats.amountOfTranslations,
 				stats.translationsCorrect, String.format("%.1f", stats.translationsCorrect/(float)stats.amountOfTranslations*100),
 				stats.translationsIncorrect, String.format("%.1f", stats.translationsIncorrect/(float)stats.amountOfTranslations*100),
-				stats.translationsNotAnswered, String.format("%.1f", stats.translationsNotAnswered/(float)stats.translationsIncorrect*100));
+				stats.translationsNotAnswered, String.format("%.1f", stats.translationsNotAnswered/Math.max(0.1f, stats.translationsIncorrect)*100));
 	}
 }

@@ -3,6 +3,7 @@ package gui.model;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.io.IOException;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,6 +74,10 @@ public class WordEngine {
 
 	public Statistics stop() {
 		return session.end();
+	}
+
+	public void saveResults() throws IOException {
+		session.saveResults();
 	}
 
 	public void render(Graphics2D g2d) {
