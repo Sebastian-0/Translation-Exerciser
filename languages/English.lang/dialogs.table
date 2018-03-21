@@ -24,6 +24,8 @@ new_session_word_lists    = Word lists
 new_session_exercise_mode = Mode
 new_session_practice      = Practice
 new_session_test          = Test
+new_session_faulty_words  = Previous errors
+new_session_include_all   = Include vanquished errors
 new_session_start         = Start training
 
 

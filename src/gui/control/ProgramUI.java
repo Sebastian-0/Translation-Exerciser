@@ -8,7 +8,7 @@ public interface ProgramUI {
 	public WordExerciser getWordExerciser();
 	
 	public void startExercising(int[] listIds, boolean isPractising);
-	public void startExercisingFaulty(boolean isPractising);
+	public void startExercisingFaulty(boolean includeZeroDecay);
 
 	public void stopExercising();
 }

@@ -7,12 +7,12 @@ import javax.swing.JRadioButton;
 
 import config.Table;
 
-public class TestRadioButton extends JRadioButton {
+public class FaultyWordsRadioButton extends JRadioButton {
 	private WordLists wordList;
 	private IncludeAllCheckbox includeAllCheckbox;
 	
-	public TestRadioButton(WordLists list, IncludeAllCheckbox includeAllCheckbox) {
-		super(Table.get("new_session_test"));
+	public FaultyWordsRadioButton(WordLists list, IncludeAllCheckbox includeAllCheckbox) {
+		super(Table.get("new_session_faulty_words"));
 		this.wordList = list;
 		this.includeAllCheckbox = includeAllCheckbox;
 		addActionListener(listener);
@@ -22,8 +22,8 @@ public class TestRadioButton extends JRadioButton {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (isSelected()) {
-				wordList.setEnabled(true);
-				includeAllCheckbox.setEnabled(false);
+				wordList.setEnabled(false);
+				includeAllCheckbox.setEnabled(true);
 			}
 		}
 	};

@@ -1,11 +1,30 @@
 package gui.dialogs.newsession;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JRadioButton;
 
 import config.Table;
 
 public class PracticeRadioButton extends JRadioButton {
-	public PracticeRadioButton() {
+	private WordLists wordList;
+	private IncludeAllCheckbox includeAllCheckbox;
+	
+	public PracticeRadioButton(WordLists list, IncludeAllCheckbox includeAllCheckbox) {
 		super(Table.get("new_session_practice"));
+		this.wordList = list;
+		this.includeAllCheckbox = includeAllCheckbox;
+		addActionListener(listener);
 	}
+	
+	private ActionListener listener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (isSelected()) {
+				wordList.setEnabled(true);
+				includeAllCheckbox.setEnabled(false);
+			}
+		}
+	};
 }

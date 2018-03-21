@@ -182,8 +182,9 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 	
 	
 	@Override
-	public void startExercisingFaulty(boolean isPractising) {
-		exercisingPanel.start(exerciser.startExercisingFaults(isPractising, false)); // TODO Proper pass of "includeZeroDecay"
+	public void startExercisingFaulty(boolean includeZeroDecay) {
+		// TODO TranslationExerciser; Should you be able to "practice" faults? Probably not.
+		exercisingPanel.start(exerciser.startExercisingFaults(false, includeZeroDecay));
 		bottomPanel.sessionStarted();
 	}
 	

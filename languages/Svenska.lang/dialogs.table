@@ -24,6 +24,8 @@ new_session_word_lists    = Ordlistor
 new_session_exercise_mode = Läge
 new_session_practice      = Öva inför test
 new_session_test          = Test
+new_session_faulty_words  = Tidigare fel
+new_session_include_all   = Inkludera övervunna fel
 new_session_start         = Starta träning
 
 
