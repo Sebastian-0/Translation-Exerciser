@@ -13,6 +13,7 @@ public class Config
 {
 	private static final String CONFIG_FILE = "config.ini";
 	public static final String FAULTS_FILE = "faults.txt";
+	public static final String STATS_FILE = "stats.txt";
 
 	public static final String[] WORDLIST_SOURCE_EXTENSIONS = new String[] { "txt", "lst" };
 	public static final String WORDLIST_EXTENSION = "txt";

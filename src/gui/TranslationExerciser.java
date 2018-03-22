@@ -200,7 +200,6 @@ public class TranslationExerciser extends JFrame implements ProgramUI {
 	}
 	
 	
-	
 	private WindowAdapter windowListener = new WindowAdapter() {
 		@Override
 		public void windowClosing(WindowEvent e) {

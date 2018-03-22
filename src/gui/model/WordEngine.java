@@ -76,8 +76,8 @@ public class WordEngine {
 		return session.end();
 	}
 
-	public void saveResults() throws IOException {
-		session.saveResults();
+	public void saveFaults() throws IOException {
+		session.saveFaults();
 	}
 
 	public void render(Graphics2D g2d) {

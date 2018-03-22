@@ -31,7 +31,8 @@ new_session_start         = Starta träning
 
 // Confirm session end dialogs
 session_end_missing_translations = Det finns fortfarande oöversatta ord kvar, om du fortsätter så kommer de markeras som fel. Fortsätta?
-session_end_save_failed          = Misslyckades med att uppdatera databasen med felsvar/spara statistiken: {0}
+session_end_save_faults_failed   = Misslyckades med att uppdatera databasen med felsvar: {0}
+session_end_save_stats_failed    = Misslyckades med att spara statistiken: {0}
 
 
 // Session results dialog

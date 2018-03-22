@@ -149,7 +149,7 @@ public class WordExerciser {
 			wordLists.get(id).collectWords(wordsToPractise);
 		}
 		
-		Session session = new Session(faults, isTraining, wordsToPractise);
+		Session session = new Session(faults, isTraining, wordsToPractise, listIds, false);
 		return session;
 	}
 	
@@ -157,7 +157,7 @@ public class WordExerciser {
 		Map<Integer, Word> wordsToPractise = new HashMap<>();
 		faults.collectWords(wordsToPractise, includeZeroDecay);
 		
-		Session session = new Session(faults, isTraining, wordsToPractise);
+		Session session = new Session(faults, isTraining, wordsToPractise, new int[0], includeZeroDecay);
 		return session;
 	}
 	

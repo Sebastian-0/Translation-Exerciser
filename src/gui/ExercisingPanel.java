@@ -13,6 +13,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 
@@ -22,8 +23,9 @@ import javax.swing.border.LineBorder;
 
 import backend.Session;
 import backend.Statistics;
+import config.Config;
 import config.Table;
-import gui.dialogs.sessionresults.SessionResultsDialog;
+import database.io.StatisticsIO;
 import gui.model.WordEngine;
 
 public class ExercisingPanel extends JPanel {
@@ -125,10 +127,18 @@ public class ExercisingPanel extends JPanel {
 			sessionRunning = false;
 			repaint();
 			try {
-				engine.saveResults();
+				engine.saveFaults();
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this,
-						MessageFormat.format(Table.get("session_end_save_failed"), e.getMessage()),
+						MessageFormat.format(Table.get("session_end_save_faults_failed"), e.getMessage()),
+						Table.get("popup_title_error"),
+						JOptionPane.ERROR_MESSAGE);
+			}
+			try {
+				new StatisticsIO().write(new File(Config.get(Config.DATA_FOLDER_PATH) + File.separator + Config.STATS_FILE), stats);
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(this,
+						MessageFormat.format(Table.get("session_end_save_stats_failed"), e.getMessage()),
 						Table.get("popup_title_error"),
 						JOptionPane.ERROR_MESSAGE);
 			}

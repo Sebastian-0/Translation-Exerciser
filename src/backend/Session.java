@@ -28,11 +28,15 @@ public class Session {
 	private Statistics stats;
 	private Set<Word> incorrect;
 	
-	public Session(Faults faults, boolean isTraining, Map<Integer, Word> wordsToPractise) {
+	public Session(Faults faults, boolean isTraining, Map<Integer, Word> wordsToPractise, int[] wordListIds, boolean includeZeroDecay) {
 		this.faults = faults;
 		this.isTraining = isTraining;
 
 		stats = new Statistics();
+		stats.wordListIds = wordListIds;
+		stats.isTraining = isTraining;
+		stats.includeZeroDecay = includeZeroDecay;
+		
 		incorrect = new HashSet<>();
 		originalWords = new HashMap<>();
 		wordsLeft = new HashMap<>();
@@ -123,7 +127,7 @@ public class Session {
 		return stats;
 	}
 	
-	public void saveResults() throws IOException {
+	public void saveFaults() throws IOException {
 		faults.save();
 	}
 }

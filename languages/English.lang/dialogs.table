@@ -31,7 +31,8 @@ new_session_start         = Start training
 
 // Confirm session end dialogs
 session_end_missing_translations = There are still words lacking translations, if you continue they will be marked as errors. Continue?
-session_end_save_failed          = Failed to update the fault database/save the statistics: {0}
+session_end_save_faults_failed   = Failed to update the fault database: {0}
+session_end_save_stats_failed    = Failed to save the statistics: {0}
 
 
 // Session results dialog
