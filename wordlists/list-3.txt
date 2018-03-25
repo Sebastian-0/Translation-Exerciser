@@ -1,0 +1,34 @@
+3
+page1b
+35; archaic = ålderdomlig
+36; quaint = pittoresk/säregen
+37; tinsel = prålig/falsk
+38; venerable = vördnadsvärd
+39; winding = snirklande
+40; picturesque = pittoresk
+41; endear = göra kör
+42; tracery = spröjsverk/rosverk
+43; transom = lågt fönster ovanför dörr eller bjälke
+44; countenance = ansikte/tolerera
+45; dreary = dyster
+46; interstice = öppning/springa
+47; efface = utplåna
+48; totter = vackla
+49; pilaster = väggpelare
+50; fanlight = halvcirkelformat fönster
+51; lozenge = romb
+52; ponderous = tung
+53; sconce = lampett
+54; enjoin = ålägga
+55; pediment = fronton
+56; cornice = kranslist
+57; overmantel = dekoration ovanför spiselkrans
+58; enigmatic = gåtfull
+59; tardily = långsamt
+60; queued hair = hår samlat i en fläta
+61; neck ruffles = prästkrage
+62; knee-breeches = knäbyxor
+63; hose = slang/hosor
+64; rural = lantlig
+65; sanctity = helighet
+66; pestilent = dödsbringare/besvärlig

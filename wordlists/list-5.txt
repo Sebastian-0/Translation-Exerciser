@@ -1,0 +1,37 @@
+5
+page2b
+98; recalcitrant = motspänstig
+99; phlegmatic = flegmatisk/långsam
+100; exasperate = reta/förbittra
+101; toil = slita
+102; volition = vilja
+103; indolent = slö
+104; stout = tjock/modig
+105; wholesale = i stor skala
+106; ineffaceable = outplånlig
+107; inextricable = ofrånkomlig
+108; clangour = skrammel
+109; brownstone = mörkbrun sandsten
+110; sullied = befläckad (bildligt)
+111; opulence = överflöd/välstånd
+112; slatternly = slampig
+113; trite = banal/sliten
+114; pathos = lidelsefull känsla
+115; seedy = krasslig
+116; diurnal = daglig
+117; sumptuous = praktfull/överdådlig
+118; hanging = väggtapet/gobeläng
+119; mellow = mogen/söt/fyllig
+120; contiguous = angränsande
+121; aquiline = örnlik
+122; repugnance = avsky
+123; deftness = jändighet
+124; timbreless = saknar klangfärg
+125; garrulous = pratsjuk
+126; dingy = grådaskig
+127; livid = dödsblek
+128; resilence = spänstighet
+129; caprice = nyck
+130; sepulchre = grav
+131; incessant = oavbrutet
+132; lassitude = trötthet

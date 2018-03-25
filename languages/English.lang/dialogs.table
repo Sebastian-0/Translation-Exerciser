@@ -12,10 +12,11 @@ init_exerciser_failed_duplicates = Multiple word lists with the same ID: {0}
 init_exerciser_failed_unknown    = An unknown error occurred, it could be a formatting error: {0}
 
 
-// Import failed dialog
+// Import failed/warning dialog
 import_failed_title      = Import failed
 import_failed_bad_format = The file you selected was not properly formatted!
-import_failed_folder     = The target you selected is not a file!
+import_warning_title      = Import warning
+import_warning_folder     = Part of your selection was ignored since it did not contain files!
 
 
 // New session dialog

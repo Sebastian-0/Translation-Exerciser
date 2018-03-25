@@ -4,3 +4,9 @@
 
 - "Reveal answer" ska inte räknas som felsvar utan som "unanswered", mao. låt engine sluta ta emot svar för det ordet utan att meddela session.
 - Statistik ska innehålla datum och tid
+
+Buggar:
+-------
+- Texten skalas inte korrekt vid zoom, kolla på domdaniel exv.
+- Att starta en ny session med zoom != 100% buggar ur 
+

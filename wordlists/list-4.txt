@@ -1,0 +1,33 @@
+4
+page2a
+67; colloquial = vardaglig
+68; malodorous = illaluktande
+69; crotala = antika symbaler
+70; dirge = sorgesång
+71; bitumen = asfalt
+72; undulant = böljande
+73; unhallowed = gudlös
+74; domdaniel = grotta på havets botten där onda magiker, andar och dvärgar möts
+75; injunction = uppmaning
+76; tenbrous = mörk
+77; presage = förutsäga
+78; vulturine = rovgirig
+79; rickety = skröplig
+80; swoon = svimma
+81; gambrel roof = tak med två olika lutningar
+82; wholesome = hälsosam
+83; pervade = genomtränga
+84; multitude = mängd/folkmassa
+85; bucolic = idyllisk
+86; bungle = misslyckas/fuska
+87; lax = slapp
+88; delver = grävare/forskare
+89; lethargic = apatisk/slö
+90; flimsy = bräcklig
+91; ungainly = klumpig
+92; flagrant = uppenbar
+93; nonagenarian = nittioåring
+94; thrifty = sparsam
+95; vindictive = hämndlysten
+96; tenacious = envis
+97; compunction = skrupler

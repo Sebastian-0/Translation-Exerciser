@@ -12,10 +12,11 @@ init_exerciser_failed_duplicates = Det finns flera ordlistor med samma ID: {0}
 init_exerciser_failed_unknown    = Ett okänt fel inträffade, kan vara ett formatteringsfel i en fil: {0}
 
 
-// Import failed dialog
+// Import failed/warning dialog
 import_failed_title      = Importen misslyckades
 import_failed_bad_format = Filen du valde är felaktigt formatterad!
-import_failed_folder     = Målet du valde är inte en fil!
+import_warning_title      = Importvarning
+import_warning_folder     = Delar av din markering ignorerades eftersom de inte var filer!
 
 
 // New session dialog

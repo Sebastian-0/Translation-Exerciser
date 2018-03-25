@@ -3,7 +3,9 @@ package gui.menubar;
 
 import java.awt.Component;
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,6 +28,7 @@ public class ImportWordListMenuItem extends AbstractMenuItem {
 				Table.get("file_description_list_source") + " (" + extensionsToString() + ")",
 				Config.WORDLIST_SOURCE_EXTENSIONS));
 		fileChooser.setAcceptAllFileFilterUsed(true);
+		fileChooser.setMultiSelectionEnabled(true);
 	}
 	
 	private String extensionsToString() {
@@ -40,31 +43,41 @@ public class ImportWordListMenuItem extends AbstractMenuItem {
 	protected void doAction(ProgramUI program) {
 		int result = fileChooser.showOpenDialog((Component) program);
 		if (result == JFileChooser.APPROVE_OPTION) {
-			File target = fileChooser.getSelectedFile();
-			if (target.isFile()) {
-				try {
-					List<Word> words = program.getWordExerciser().importList(target);
-					if (!words.isEmpty()) { // TODO Replace message with a proper dialog! We want to change the name too!
-						String wordText = "";
-						for (Word word : words) {
-							wordText += word.word + "\n";
-						}
+			File[] targets = fileChooser.getSelectedFiles();
+			
+			Set<Word> existingWords = new HashSet<>();
+			boolean targetNotFile = false;
+			for (File target : targets) {
+				if (target.isFile()) {
+					try {
+						List<Word> words = program.getWordExerciser().importList(target);
+						existingWords.addAll(words);
+					} catch (Throwable e) {
 						JOptionPane.showMessageDialog((Component) program,
-								"The following words already existed and were merged:\n" + wordText.trim(),
-								"Import warning",
-								JOptionPane.WARNING_MESSAGE);
+								Table.get("import_failed_bad_format"),
+								Table.get("import_failed_title"),
+								JOptionPane.ERROR_MESSAGE);
 					}
-				} catch (Throwable e) {
-					JOptionPane.showMessageDialog((Component) program,
-							Table.get("import_failed_bad_format"),
-							Table.get("import_failed_title"),
-							JOptionPane.ERROR_MESSAGE);
+				} else {
+					targetNotFile = true;
 				}
-			} else {
+			}
+			
+			if (targetNotFile) {
 				JOptionPane.showMessageDialog((Component) program,
-						Table.get("import_failed_folder"),
-						Table.get("import_failed_title"),
-						JOptionPane.ERROR_MESSAGE);
+						Table.get("import_warning_folder"),
+						Table.get("import_warning_title"),
+						JOptionPane.WARNING_MESSAGE);
+			}
+			if (!existingWords.isEmpty()) { // TODO Replace message with a proper dialog! We want to change the name too!
+				String wordText = "";
+				for (Word word : existingWords) {
+					wordText += word.word + "\n";
+				}
+				JOptionPane.showMessageDialog((Component) program,
+						"The following words already existed and were merged:\n" + wordText.trim(),
+						Table.get("import_warning_title"),
+						JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}

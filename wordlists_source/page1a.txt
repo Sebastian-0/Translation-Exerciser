@@ -28,5 +28,3 @@ stridor = strävt, gällt eller knarrande ljud
 sentient = känslig
 stalwart = robust; trogen
 ignoble = ovärdig; tarvlig
-
-sentient = känslig
