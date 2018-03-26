@@ -3,6 +3,7 @@ package database.io;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,26 +17,28 @@ public class FaultListIO {
 	public List<FaultyWord> read(File input) throws IOException {
 		List<FaultyWord> list = new ArrayList<>();
 		
-		BufferedReader in = new BufferedReader(new FileReader(input));
-		
-		while (true) {
-			String wordLine = in.readLine();
-			if (wordLine == null)
-				break;
-			
-			if (!wordLine.isEmpty()) {
-				String[] wordTokens = wordLine.split(";");
+		try (BufferedReader in = new BufferedReader(new FileReader(input))) {
+			while (true) {
+				String wordLine = in.readLine();
+				if (wordLine == null)
+					break;
 				
-				FaultyWord word = new FaultyWord();
-				word.id = Integer.parseInt(wordTokens[0]);
-				word.failureStreak = Integer.parseInt(wordTokens[1]);
-				word.decay = Float.parseFloat(wordTokens[2]);
-				
-				list.add(word);
+				if (!wordLine.isEmpty()) {
+					String[] wordTokens = wordLine.split(";");
+					
+					FaultyWord word = new FaultyWord();
+					word.id = Integer.parseInt(wordTokens[0]);
+					word.failureStreak = Integer.parseInt(wordTokens[1]);
+					word.decay = Float.parseFloat(wordTokens[2]);
+					
+					list.add(word);
+				}
 			}
+			
+			in.close();
+		} catch (FileNotFoundException e) {
+			// Ignore, the file will be created automatically when saved
 		}
-		
-		in.close();
 		
 		return list;
 	}
