@@ -18,13 +18,14 @@ public class WordListIO {
 		
 		WordList list = new WordList();
 		list.id = Integer.parseInt(in.readLine());
-		list.name = in.readLine();
+		list.name = new String(in.readLine().getBytes(), "UTF8");
 		list.listPath = input;
 		
 		while (true) {
 			String wordLine = in.readLine();
 			if (wordLine == null)
 				break;
+			wordLine = new String(wordLine.getBytes(), "UTF8");
 			
 			if (!wordLine.isEmpty()) {
 				String[] tokens = wordLine.split("\\s*=\\s*");

@@ -22,6 +22,7 @@ public class WordListImporter {
 			String wordLine = in.readLine();
 			if (wordLine == null)
 				break;
+			wordLine = new String(wordLine.getBytes(), "UTF8");
 			
 			if (!wordLine.isEmpty()) {
 				String[] tokens = wordLine.split("\\s*=\\s*");
