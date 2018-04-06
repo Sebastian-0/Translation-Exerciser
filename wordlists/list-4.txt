@@ -17,12 +17,12 @@ page2a
 81; gambrel roof = tak med två olika lutningar
 82; wholesome = hälsosam
 83; pervade = genomtränga
-84; multitude = mängd/folkmassa
+84; multitude = mängd; folkmassa
 85; bucolic = idyllisk
-86; bungle = misslyckas/fuska
+86; bungle = misslyckas; fuska
 87; lax = slapp
-88; delver = grävare/forskare
-89; lethargic = apatisk/slö
+88; delver = grävare; forskare
+89; lethargic = apatisk; slö
 90; flimsy = bräcklig
 91; ungainly = klumpig
 92; flagrant = uppenbar
