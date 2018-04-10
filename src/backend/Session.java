@@ -15,7 +15,8 @@ public class Session {
 		CorrectTranslationsLeft,
 		CorrectWordDone,
 		Incorrect,
-		AlreadyAssigned
+		AlreadyAssigned,
+		TranslationsRevealed
 	}
 		
 	private Faults faults;
@@ -27,6 +28,7 @@ public class Session {
 	
 	private Statistics stats;
 	private Set<Word> incorrect;
+	private Set<Word> revealed;
 	
 	public Session(Faults faults, boolean isTraining, Map<Integer, Word> wordsToPractise, int[] wordListIds, boolean includeZeroDecay) {
 		this.faults = faults;
@@ -38,6 +40,7 @@ public class Session {
 		stats.includeZeroDecay = includeZeroDecay;
 		
 		incorrect = new HashSet<>();
+		revealed = new HashSet<>();
 		originalWords = new HashMap<>();
 		wordsLeft = new HashMap<>();
 		for (Word word : wordsToPractise.values()) {
@@ -86,6 +89,18 @@ public class Session {
 		incorrect.add(w);
 		return Result.Incorrect;
 	}
+
+
+	public List<String> revealTranslations(String word) {
+		Word w = originalWords.get(word);
+		
+		if (wordsLeft.containsKey(word)) {
+			Word wordLeft = wordsLeft.remove(word);			
+			revealed.add(wordLeft);
+		}
+		
+		return w.translations;
+	}
 	
 	public boolean allTranslated() {
 		for (Word word : wordsLeft.values()) {
@@ -123,6 +138,19 @@ public class Session {
 			stats.translationsNotAnswered += missedTranslations;
 			stats.translationsIncorrect += missedTranslations;
 		}
+		
+		for (Word word : revealed) {
+			int maximumTranslations = originalWords.get(word.word).translations.size();
+			int missedTranslations = word.translations.size();
+			if (!isTraining) {
+				faults.wordIncorrect(word, maximumTranslations - missedTranslations);
+			}
+			
+			stats.translationsNotAnswered += missedTranslations;
+			stats.translationsIncorrect += missedTranslations;
+			stats.wordsIncorrect += 1;
+		}
+		
 		stats.amountOfTranslations = stats.translationsCorrect + stats.translationsIncorrect;
 		return stats;
 	}

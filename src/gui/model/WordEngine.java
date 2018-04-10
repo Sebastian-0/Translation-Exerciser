@@ -19,6 +19,7 @@ public class WordEngine {
 	private List<WordBlock> wordsToTranslate;
 	private List<AnswerBlock> targets;
 	private List<WordBlock> alternatives;
+	private List<RevealBlock> revealButtons;
 	
 	private WordBlock movingWord;
 
@@ -29,6 +30,7 @@ public class WordEngine {
 		wordsToTranslate = new ArrayList<>();
 		targets = new ArrayList<>();
 		alternatives = new ArrayList<>();
+		revealButtons = new ArrayList<>();
 	}
 
 	public void start(Session session) {
@@ -36,6 +38,7 @@ public class WordEngine {
 		wordsToTranslate.clear();
 		alternatives.clear();
 		targets.clear();
+		revealButtons.clear();
 		movingWord = null;
 		offsetAlternatives = 0;
 		offsetTargets = 0;
@@ -60,13 +63,15 @@ public class WordEngine {
 			widest = Math.max(widest, wordBlock.getWidth());
 		}
 
-		x = -widest - offset - AbstractBlock.HEIGHT/2;
+		x = -widest - offset - AbstractBlock.HEIGHT/2 - RevealBlock.SIZE;
 		y = offset;
 		for (String word : words) {
 			WordBlock newWord = new WordBlock(word, x, y, true);
 			AnswerBlock answerBlock = new AnswerBlock(newWord, x + AbstractBlock.HEIGHT/2, y, false);
+			RevealBlock revealButton = new RevealBlock(answerBlock, x + AbstractBlock.HEIGHT + widest, y + AbstractBlock.HEIGHT/2 - RevealBlock.SIZE/2, false);
 			wordsToTranslate.add(newWord);
 			targets.add(answerBlock);
+			revealButtons.add(revealButton);
 			y += 1.5 * AbstractBlock.HEIGHT;
 			answerBlock.setWidth(widest);
 		}
@@ -93,6 +98,9 @@ public class WordEngine {
 		for (AnswerBlock answerBlock : targets) {
 			answerBlock.render(g2d);
 		}
+		for (RevealBlock revealButton : revealButtons) {
+			revealButton.render(g2d);
+		}
 		g2d.translate(0, -offsetTargets);
 		
 		if (movingWord != null) {
@@ -107,12 +115,21 @@ public class WordEngine {
 
 	public boolean mousePressed(MouseEvent e, int viewportX, int viewportY) {
 		if (isLeftMouseButton(e)) {
+			int x = e.getX() + viewportX;
+			int y = e.getY() + viewportY;
 			for (WordBlock word : alternatives) {
-				int x = e.getX() + viewportX;
-				int y = e.getY() + viewportY;
 				if (word.contains(x, y - offsetAlternatives)) {
 					movingWord = new WordBlock(word);
 					movingWord.setCenter(x, y);
+					return true;
+				}
+			}
+			
+			for (RevealBlock revealBlock : revealButtons) {
+				if (revealBlock.contains(x, y - offsetTargets) && revealBlock.markTriggered()) {
+					AnswerBlock block = revealBlock.getConnectedWord();
+					List<String> translations = session.revealTranslations(block.getConnectedWord());
+					block.updateWithResult(Result.TranslationsRevealed, translations);
 					return true;
 				}
 			}
@@ -124,11 +141,17 @@ public class WordEngine {
 		if (isLeftMouseButton(e) && movingWord != null) {
 			int x = e.getX() + viewportX;
 			int y = e.getY() + viewportY;
-			for (AnswerBlock target : targets) {
+			
+			for (int i = 0; i < targets.size(); i++) {
+				AnswerBlock target = targets.get(i);
 				if (target.contains(x, y - offsetTargets) && !target.isDone()) {
 					target.setHighlighted(false);
 					Result result = session.tryTranslate(target.getConnectedWord(), movingWord.toString());
 					target.updateWithResult(result, movingWord.toString());
+					
+					if (target.isDone()) {
+						revealButtons.get(i).markTriggered();
+					}
 				}
 			}
 			
@@ -139,12 +162,13 @@ public class WordEngine {
 	}
 	
 	public boolean mouseMoved(MouseEvent e, boolean wasDragged, int viewportX, int viewportY) {
+		int x = e.getX() + viewportX;
+		int y = e.getY() + viewportY;
+		
+		updateHighlight(x, y);
+		
 		if (wasDragged && movingWord != null) {
-			int x = e.getX() + viewportX;
-			int y = e.getY() + viewportY;
 			movingWord.setCenter(x, y);
-			
-			updateHighlight(x, y);
 			
 			return true;
 		}
@@ -152,11 +176,21 @@ public class WordEngine {
 	}
 
 	private void updateHighlight(int x, int y) {
-		for (AnswerBlock target : targets) {
-			if (target.contains(x, y - offsetTargets)) {
-				target.setHighlighted(true);
-			} else {
-				target.setHighlighted(false);
+		if (movingWord != null) {
+			for (AnswerBlock target : targets) {
+				if (target.contains(x, y - offsetTargets)) {
+					target.setHighlighted(true);
+				} else {
+					target.setHighlighted(false);
+				}
+			}
+		} else {
+			for (RevealBlock revealButton : revealButtons) {
+				if (revealButton.contains(x, y - offsetTargets)) {
+					revealButton.setHighlighted(true);
+				} else {
+					revealButton.setHighlighted(false);
+				}
 			}
 		}
 	}

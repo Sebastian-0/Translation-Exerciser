@@ -2,8 +2,11 @@
 - Lägg in ny dialog för "practice previous errors", ska bara funka om det finns previous errors
 - Import-dialogen ska bli mer avancerad och tillåta namngivning
 
-- "Reveal answer" ska inte räknas som felsvar utan som "unanswered", mao. låt engine sluta ta emot svar för det ordet utan att meddela session.
+- "Reveal answer" ska föras som separat statistik i resultatrutan
+- Låt alternativ till översättning kunna highlightas
 - Statistik ska innehålla datum och tid
+- Man skall kunna se alla inmatade/avslöjade översättningar till varje ord
+- När sessionen avslutas så bör resterande fel avslöjas?
 
 Buggar:
 -------

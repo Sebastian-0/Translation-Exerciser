@@ -2,6 +2,7 @@ package gui.model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.List;
 
 import backend.Session.Result;
 
@@ -10,7 +11,8 @@ public class AnswerBlock extends AbstractBlock {
 	enum State {
 		WordsLeft(new Color(45, 180, 255)),
 		Done(new Color(65, 160, 30)),
-		Incorrect(new Color(200, 35, 35));
+		Incorrect(new Color(200, 35, 35)),
+		Revealed(new Color(240, 160, 10));
 		
 		Color color;
 		State(Color color) {
@@ -31,7 +33,7 @@ public class AnswerBlock extends AbstractBlock {
 	@Override
 	protected void drawBackground(Graphics2D g2d) {
 		int offset = 0;
-		if (!isHighlighted || state == State.Done) {
+		if (!isHighlighted || isDone()) {
 			g2d.setColor(state.color);
 		} else {
 			g2d.setColor(state.color.darker().darker());
@@ -56,7 +58,7 @@ public class AnswerBlock extends AbstractBlock {
 	}
 	
 	public boolean isDone() {
-		return state == State.Done;
+		return state == State.Done || state == State.Revealed;
 	}
 	
 	public void setWidth(int width) {
@@ -65,6 +67,10 @@ public class AnswerBlock extends AbstractBlock {
 
 	public void setHighlighted(boolean isHighlighted) {
 		this.isHighlighted = isHighlighted;
+	}
+	
+	public void updateWithResult(Result result, List<String> words) { // TODO AnswerBlock; Must store and show all translations in some way
+		updateWithResult(result, words.get(0));
 	}
 	
 	public void updateWithResult(Result result, String word) {
@@ -79,6 +85,9 @@ public class AnswerBlock extends AbstractBlock {
 			break;
 		case Incorrect:
 			state = State.Incorrect;
+			break;
+		case TranslationsRevealed:
+			state = State.Revealed;
 			break;
 
 		default:
