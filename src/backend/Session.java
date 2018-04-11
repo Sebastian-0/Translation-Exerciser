@@ -146,7 +146,7 @@ public class Session {
 				faults.wordIncorrect(word, maximumTranslations - missedTranslations);
 			}
 			
-			stats.translationsNotAnswered += missedTranslations;
+			stats.translationsRevealed += missedTranslations;
 			stats.translationsIncorrect += missedTranslations;
 			stats.wordsIncorrect += 1;
 		}

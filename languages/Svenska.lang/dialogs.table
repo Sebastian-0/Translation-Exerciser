@@ -38,4 +38,4 @@ session_end_save_stats_failed    = Misslyckades med att spara statistiken: {0}
 
 // Session results dialog
 session_results_title = Resultat
-session_results_message = Ord:\n Totalt antal: {0}\n  Perfekta: {1} ({2}%)\n  Korrekta: {3} ({4}%)\n  Partiellt korrekta: {5} ({6}%)\n  Felaktiga: {7} ({8}%)\n    Varav {9} obesvarade ({10}% av Felaktiga)\n\nÖversättningar:\n  Totalt antal: {11}\n  Korrekta: {12} ({13}%)\n  Felaktiga: {14} ({15}%)\n    varav {16} obesvarade ({17}% av Felaktiga)
+session_results_message = Ord:\n Totalt antal: {0}\n  Perfekta: {1} ({2}%)\n  Korrekta: {3} ({4}%)\n  Partiellt korrekta: {5} ({6}%)\n  Felaktiga: {7} ({8}%)\n    varav {9} obesvarade ({10}% av Felaktiga)\n\nÖversättningar:\n  Totalt antal: {11}\n  Korrekta: {12} ({13}%)\n  Felaktiga: {14} ({15}%)\n    varav {16} obesvarade ({17}% av Felaktiga\n    varav {18} avslöjade ({19}% av Felaktiga)

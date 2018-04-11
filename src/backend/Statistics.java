@@ -22,9 +22,11 @@ public class Statistics {
 	/* Words that were correct with no errors */
 	public int wordsCorrectNoErrors;
 
+	/* Amount of translations that got revealed */
+	public int translationsRevealed;
 	/* Amount of translations that got no answer (both unanswered and those with only incorrect answers) */
 	public int translationsNotAnswered;
-	/* Amount of incorrect translation attempts, also includes one for each "not answered" */
+	/* Amount of incorrect translation attempts, also includes one for each "not answered" and "revealed" */
 	public int translationsIncorrect;
 	/* Amount of correct translations, there may have been errors along the way */
 	public int translationsCorrect;
@@ -37,7 +39,7 @@ public class Statistics {
 		return ids + "; " + amountOfWords + ":" + amountOfTranslations + ":" + isTraining + ":" + includeZeroDecay + "; " +
 				wordsNoAnswer + ":" + wordsIncorrect + ":" + wordsPartiallyCorrect + ":" + wordsCorrect + ":" +
 					wordsCorrectNoErrors + "; " + 
-				translationsNotAnswered + ":" + translationsIncorrect + ":" + translationsCorrect;
+				translationsRevealed + ":" + translationsNotAnswered + ":" + translationsIncorrect + ":" + translationsCorrect;
 	}
 	
 	public void fromString(String in) {
@@ -63,8 +65,9 @@ public class Statistics {
 		wordsCorrectNoErrors = Integer.parseInt(wordStats[4]);
 		
 		String[] translationStats = tokens[3].split(":");
-		translationsNotAnswered = Integer.parseInt(translationStats[0]);
-		translationsIncorrect = Integer.parseInt(translationStats[1]);
-		translationsCorrect = Integer.parseInt(translationStats[2]);
+		translationsRevealed = Integer.parseInt(translationStats[0]);
+		translationsNotAnswered = Integer.parseInt(translationStats[1]);
+		translationsIncorrect = Integer.parseInt(translationStats[2]);
+		translationsCorrect = Integer.parseInt(translationStats[3]);
 	}
 }

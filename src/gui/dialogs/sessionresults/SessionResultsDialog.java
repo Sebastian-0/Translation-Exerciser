@@ -52,6 +52,7 @@ public class SessionResultsDialog extends JDialog {
 				stats.amountOfTranslations,
 				stats.translationsCorrect, String.format("%.1f", stats.translationsCorrect/(float)stats.amountOfTranslations*100),
 				stats.translationsIncorrect, String.format("%.1f", stats.translationsIncorrect/(float)stats.amountOfTranslations*100),
-				stats.translationsNotAnswered, String.format("%.1f", stats.translationsNotAnswered/Math.max(0.1f, stats.translationsIncorrect)*100));
+				stats.translationsNotAnswered, String.format("%.1f", stats.translationsNotAnswered/Math.max(0.1f, stats.translationsIncorrect)*100),
+				stats.translationsRevealed, String.format("%.1f", stats.translationsRevealed/Math.max(0.1f, stats.translationsIncorrect)*100));
 	}
 }

@@ -38,4 +38,4 @@ session_end_save_stats_failed    = Failed to save the statistics: {0}
 
 // Session results dialog
 session_results_title = Results
-session_results_message = Words:\n Total amount: {0}\n  Perfect: {1} ({2}%)\n  Correct: {3} ({4}%)\n  Partially correct: {5} ({6}%)\n  Incorrect: {7} ({8}%)\n    with {9} unanswered ({10}% of Incorrect)\n\nTranslations:\n  Total amount: {11}\n  Correct: {12} ({13}%)\n  Incorrect: {14} ({15}%)\n    with {16} unanswered ({17}% of Incorrect)  
+session_results_message = Words:\n Total amount: {0}\n  Perfect: {1} ({2}%)\n  Correct: {3} ({4}%)\n  Partially correct: {5} ({6}%)\n  Incorrect: {7} ({8}%)\n    with {9} unanswered ({10}% of Incorrect)\n\nTranslations:\n  Total amount: {11}\n  Correct: {12} ({13}%)\n  Incorrect: {14} ({15}%)\n    with {16} unanswered ({17}% of Incorrect)\n    with {18} revealed ({19}% of Incorrect)
