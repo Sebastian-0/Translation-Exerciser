@@ -121,6 +121,7 @@ public class WordEngine {
 				if (word.contains(x, y - offsetAlternatives)) {
 					movingWord = new WordBlock(word);
 					movingWord.setCenter(x, y);
+					word.setHighlighted(false);
 					return true;
 				}
 			}
@@ -190,6 +191,13 @@ public class WordEngine {
 					revealButton.setHighlighted(true);
 				} else {
 					revealButton.setHighlighted(false);
+				}
+			}
+			for (WordBlock target : alternatives) {
+				if (target.contains(x, y - offsetAlternatives)) {
+					target.setHighlighted(true);
+				} else {
+					target.setHighlighted(false);
 				}
 			}
 		}

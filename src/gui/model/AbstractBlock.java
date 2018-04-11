@@ -19,6 +19,8 @@ public abstract class AbstractBlock {
 	private int y;
 	
 	protected int width;
+
+	private boolean isHighlighted;
 	
 	public AbstractBlock(String text, int x, int y, boolean rightCentered) {
 		this.word = text;
@@ -41,14 +43,23 @@ public abstract class AbstractBlock {
 	public void render(Graphics2D g2d) {
 		g2d.setFont(font);
 		
-		g2d.setColor(Color.GRAY);
+		g2d.setColor(getColor(isHighlighted));
 		drawBackground(g2d);
 		g2d.setColor(Color.BLACK);
 		drawWord(g2d);
 	}
 
 	protected void drawBackground(Graphics2D g2d) {
-		g2d.fillRoundRect(getCenterX() - getWidth()/2, getCenterY() - getHeight()/2, getWidth(), getHeight(), 10, 10);
+		int offset = 0;
+		if (isHighlighted && !isDone()) {
+			offset = getHighlightSizeOffset();
+		}
+
+		g2d.fillRoundRect(getCenterX() - getWidth()/2 - offset,
+				getCenterY() - getHeight()/2 - offset,
+				getWidth() + offset*2,
+				getHeight() + offset*2,
+				10, 10);
 	}
 	
 	protected void drawWord(Graphics2D g2d) {
@@ -79,11 +90,27 @@ public abstract class AbstractBlock {
 		this.y += y - getCenterY();
 	}
 
+	public void setHighlighted(boolean isHighlighted) {
+		this.isHighlighted = isHighlighted;
+	}
+
 	public boolean contains(int x, int y) {
 		int x1 = getCenterX() - getWidth()/2;
 		int y1 = getCenterY() - getHeight()/2;
 		int x2 = getCenterX() + getWidth()/2;
 		int y2 = getCenterY() + getHeight()/2;
 		return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+	}
+	
+	public boolean isDone() {
+		return false;
+	}
+	
+	protected Color getColor(boolean isHighlighted) {
+		return Color.GRAY;
+	}
+	
+	protected int getHighlightSizeOffset() {
+		return 3;
 	}
 }

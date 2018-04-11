@@ -8,31 +8,11 @@ public class RevealBlock extends AbstractBlock {
 	public static final int SIZE = 20;
 		
 	private AnswerBlock connectedWord;
-	private boolean isHighlighted;
 	private boolean isTriggered;
 	
 	public RevealBlock(AnswerBlock connectedWord, int x, int y, boolean rightCentered) {
 		super("R", x, y, rightCentered);
 		this.connectedWord = connectedWord;
-	}
-	
-	@Override
-	protected void drawBackground(Graphics2D g2d) {
-		int offset = 0;
-		if (!isHighlighted) {
-		} else {
-			offset = 1;
-		}
-
-		if (!isTriggered)
-			g2d.setColor(Color.YELLOW.darker());
-		else
-			g2d.setColor(Color.YELLOW.darker().darker());
-		g2d.fillRoundRect(getCenterX() - getWidth()/2 - offset,
-				getCenterY() - getHeight()/2 - offset,
-				getWidth() + offset*2,
-				getHeight() + offset*2,
-				10, 10);
 	}
 	
 	@Override
@@ -54,15 +34,28 @@ public class RevealBlock extends AbstractBlock {
 	public AnswerBlock getConnectedWord() {
 		return connectedWord;
 	}
-
-	public void setHighlighted(boolean isHighlighted) {
-		this.isHighlighted = isHighlighted && !isTriggered;
+	
+	@Override
+	protected Color getColor(boolean isHighlighted) {
+		if (!isTriggered)
+			return Color.YELLOW.darker();
+		else
+			return Color.YELLOW.darker().darker();
+	}
+	
+	@Override
+	protected int getHighlightSizeOffset() {
+		return 1;
+	}
+	
+	@Override
+	public boolean isDone() {
+		return isTriggered;
 	}
 	
 	public boolean markTriggered() {
 		if (!isTriggered) {
 			isTriggered = true;
-			isHighlighted = false;
 			return true;
 		}
 		return false;

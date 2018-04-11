@@ -21,30 +21,12 @@ public class AnswerBlock extends AbstractBlock {
 	}
 	
 	private WordBlock connectedWord;
-	private boolean isHighlighted;
 	private State state;
 	
 	public AnswerBlock(WordBlock connectedWord, int x, int y, boolean rightCentered) {
 		super("?", x, y, rightCentered);
 		this.connectedWord = connectedWord;
 		state = State.WordsLeft;
-	}
-	
-	@Override
-	protected void drawBackground(Graphics2D g2d) {
-		int offset = 0;
-		if (!isHighlighted || isDone()) {
-			g2d.setColor(state.color);
-		} else {
-			g2d.setColor(state.color.darker().darker());
-			offset = 3;
-		}
-
-		g2d.fillRoundRect(getCenterX() - getWidth()/2 - offset,
-				getCenterY() - getHeight()/2 - offset,
-				getWidth() + offset*2,
-				getHeight() + offset*2,
-				10, 10);
 	}
 	
 	@Override
@@ -57,16 +39,22 @@ public class AnswerBlock extends AbstractBlock {
 		return connectedWord.toString();
 	}
 	
+	@Override
 	public boolean isDone() {
 		return state == State.Done || state == State.Revealed;
 	}
 	
+	@Override
+	protected Color getColor(boolean isHighlighted) {
+		if (isHighlighted && !isDone()) {
+			return state.color.darker().darker();
+		} else {
+			return state.color;
+		}
+	}
+	
 	public void setWidth(int width) {
 		this.width = width;
-	}
-
-	public void setHighlighted(boolean isHighlighted) {
-		this.isHighlighted = isHighlighted;
 	}
 	
 	public void updateWithResult(Result result, List<String> words) { // TODO AnswerBlock; Must store and show all translations in some way
