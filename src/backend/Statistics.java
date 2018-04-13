@@ -31,6 +31,8 @@ public class Statistics {
 	/* Amount of correct translations, there may have been errors along the way */
 	public int translationsCorrect;
 	
+	public long timestamp;
+	
 	
 	@Override
 	public String toString() {
@@ -39,7 +41,7 @@ public class Statistics {
 		return ids + "; " + amountOfWords + ":" + amountOfTranslations + ":" + isTraining + ":" + includeZeroDecay + "; " +
 				wordsNoAnswer + ":" + wordsIncorrect + ":" + wordsPartiallyCorrect + ":" + wordsCorrect + ":" +
 					wordsCorrectNoErrors + "; " + 
-				translationsRevealed + ":" + translationsNotAnswered + ":" + translationsIncorrect + ":" + translationsCorrect;
+				translationsRevealed + ":" + translationsNotAnswered + ":" + translationsIncorrect + ":" + translationsCorrect + "; " + timestamp;
 	}
 	
 	public void fromString(String in) {
@@ -69,5 +71,7 @@ public class Statistics {
 		translationsNotAnswered = Integer.parseInt(translationStats[1]);
 		translationsIncorrect = Integer.parseInt(translationStats[2]);
 		translationsCorrect = Integer.parseInt(translationStats[3]);
+		
+		timestamp = Long.parseLong(tokens[4]);
 	}
 }

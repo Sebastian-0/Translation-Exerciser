@@ -152,6 +152,8 @@ public class Session {
 		}
 		
 		stats.amountOfTranslations = stats.translationsCorrect + stats.translationsIncorrect;
+		
+		stats.timestamp = System.currentTimeMillis();
 		return stats;
 	}
 	
