@@ -55,6 +55,8 @@ public class WordListIO {
 	
 	
 	public void write(WordList list) throws IOException {
+		list.listPath.mkdirs();
+		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(list.listPath));
 
 		writer.write(list.id + "\n");
@@ -68,10 +70,5 @@ public class WordListIO {
 		}
 		
 		writer.close();
-	}
-
-
-	public static void main(String[] args) throws IOException {
-		new WordListIO().read(new File("wordlists/list-1.txt"));
 	}
 }

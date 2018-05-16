@@ -43,13 +43,10 @@ public class StatisticsIO {
 	
 	
 	public void write(File output, Statistics stats) throws IOException {
+		output.getParentFile().mkdirs();
+		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(output, true));
 		writer.write(stats.toString() + "\n");
 		writer.close();
-	}
-
-
-	public static void main(String[] args) throws IOException {
-		new StatisticsIO().read(new File("wordlists/list-1.txt"));
 	}
 }

@@ -51,6 +51,8 @@ public class FaultListIO {
 	}
 	
 	public void write(File output, List<FaultyWord> list) throws IOException {
+		output.getParentFile().mkdirs();
+		
 		BufferedWriter out = new BufferedWriter(new FileWriter(output));
 		
 		for (FaultyWord faultyWord : list) {
@@ -58,11 +60,5 @@ public class FaultListIO {
 		}
 		
 		out.close();
-	}
-	
-	
-	public static void main(String[] args) throws IOException {
-		List<FaultyWord> list = new FaultListIO().read(new File("data/faults.txt"));
-		new FaultListIO().write(new File("data/temp.txt"), list);
 	}
 }
