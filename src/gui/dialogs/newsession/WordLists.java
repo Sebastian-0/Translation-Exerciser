@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2016 Sebastian Hjelm
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the MIT License.
+ */
+
 package gui.dialogs.newsession;
 
 import java.awt.Color;
