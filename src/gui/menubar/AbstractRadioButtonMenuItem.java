@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Sebastian Hjelm
+ * Copyright (C) 2018 Sebastian Hjelm
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the MIT License.
