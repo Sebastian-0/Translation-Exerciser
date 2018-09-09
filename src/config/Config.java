@@ -102,7 +102,7 @@ public class Config
 		try
 		{
 			FileOutputStream out = new FileOutputStream(new File(CONFIG_FILE));
-			properties.store(out, "Logic Sim ini-file. Do not change manually\n");
+			properties.store(out, "Translation Exerciser ini-file. Do not change manually\n");
 			out.close();
 		} catch (IOException e)
 		{
