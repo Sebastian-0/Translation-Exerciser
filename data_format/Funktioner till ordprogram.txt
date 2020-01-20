@@ -1,0 +1,21 @@
+
+Backend:
+--------
+- Vid övning välj "träna" eller "testa"
+- Varje lista med ord har koll på datum och träffsäkerhet för varje tidigare test/träning
+- Varje ord har en unik ID, duplicerade ord får ska ha samma ID
+- Felsvar hamnar i en separat lista, för att lämna den listan så måste order få sin decay att bli 0:
+  - Decay börjar på 3
+  - Ökar med 2, 2, 3, 3, 3, ... för 1, 2, 3, 4, 5, ... felsvar på raken
+  - Minskar med 1 per rätt svar
+  - Slutar på 0, ord som aldrig blivit fel har -1 så att man kan se skillnad
+  - Ska bara kunna minska/öka en gång per session (instans av programmet). Repeterade övningar ska inte omedelbart tömma listan utan att man kör igen över flera dagar. Det är det första "testet" av felsvaren som räknas (per session)
+
+GUI:
+----
+- Ord med flera översättningar visas som att den kräver en översättning, efter första ordet visar den plats för en till osv.
+
+
+Buggar:
+-------
+- Om ett ord finns med 2 gånger med olika översättning i ett förhör så är det den första översättningen som kommer gälla. Merga olika översättningar på något sätt?
